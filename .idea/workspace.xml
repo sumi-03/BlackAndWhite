@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="MusicPlayer 추가">
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="SettingsPanel 추가">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/loginpanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/LobbyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LobbyPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Images/mail_icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/Images/mail_icon.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +121,7 @@
       <workItem from="1731565999553" duration="1394000" />
       <workItem from="1732088434724" duration="2037000" />
       <workItem from="1733228476301" duration="1421000" />
-      <workItem from="1733229910056" duration="6283000" />
+      <workItem from="1733229910056" duration="9253000" />
     </task>
     <task id="LOCAL-00001" summary="16:10으로 gameframe 해상도 변경">
       <option name="closed" value="true" />
@@ -163,7 +163,39 @@
       <option name="project" value="LOCAL" />
       <updated>1733236164528</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="new">
+      <option name="closed" value="true" />
+      <created>1733236232340</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236232340</updated>
+    </task>
+    <task id="LOCAL-00007" summary="img 추가">
+      <option name="closed" value="true" />
+      <created>1733236265963</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236265963</updated>
+    </task>
+    <task id="LOCAL-00008" summary="LobbyPanel 추가">
+      <option name="closed" value="true" />
+      <created>1733236284988</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236284988</updated>
+    </task>
+    <task id="LOCAL-00009" summary="SettingsPanel 추가">
+      <option name="closed" value="true" />
+      <created>1733236300834</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236300834</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -198,6 +230,10 @@
     <MESSAGE value="GameFrame 수정" />
     <MESSAGE value="LoginPanel 추가" />
     <MESSAGE value="MusicPlayer 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="MusicPlayer 추가" />
+    <MESSAGE value="new" />
+    <MESSAGE value="img 추가" />
+    <MESSAGE value="LobbyPanel 추가" />
+    <MESSAGE value="SettingsPanel 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="SettingsPanel 추가" />
   </component>
 </project>
