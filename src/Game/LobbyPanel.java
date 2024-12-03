@@ -34,86 +34,70 @@ public class LobbyPanel extends JPanel {
         userListPanel.setOpaque(false);
 
         // 각 유저 패널의 높이 계산
-        int panelHeight = userListPanel.getHeight() /8;
+        int panelHeight = userListPanel.getHeight() / 8;
         int panelWidth = userListPanel.getWidth();
         int verticalGap = 2; // 패널 간의 간격
-        // 유저 추가 메서드
-        for (int i = 0; i < 3; i++) {
-            // 개별 유저 패널 생성
-            JPanel userPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+
+        for (int i = 0; i < 5; i++) {
+            JPanel userPanel = new JPanel(null); // 절대 위치로 설정
             userPanel.setOpaque(false);
             userPanel.setBounds(0, i * (panelHeight + verticalGap), panelWidth, panelHeight - verticalGap);
 
-            // 유저 이름 라벨 추가
             JLabel userLabel = new JLabel("유저 " + (i + 1));
             userLabel.setForeground(Color.BLACK);
-
-            // 쪽지 버튼 추가
-            JButton messageButton = new JButton("쪽지");
-            messageButton.setFont(new Font("Malgun Gothic", Font.PLAIN, 11)); // 버튼 크기 조정
-
+            userLabel.setBounds(5, 5, panelWidth - 40, panelHeight - 15); // 왼쪽에 배치
             userPanel.add(userLabel);
+
+            JButton messageButton = new JButton();
+            messageButton.setIcon(new ImageIcon("src/images/mail_icon.png")); // 아이콘 설정
+            messageButton.setBounds(panelWidth - 50, 5, 35, panelHeight - 12); // 오른쪽에 배치
             userPanel.add(messageButton);
 
-            // userListPanel에 추가
             userListPanel.add(userPanel);
         }
-        // 유저 목록 패널을 부모 패널에 추가
         leftPanel.add(userListPanel);
 
         JLabel label = new JLabel("접속유저", SwingConstants.CENTER);
         label.setBounds(32, 85, 128, 30);
         label.setForeground(Color.BLACK);
-        label.setFont(new Font("Malgun Gothic", Font.PLAIN, 14));
+        label.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
         leftPanel.add(label);
 
-        // 배경 이미지 로드
-        try {
-            backgroundImage = ImageIO.read(getClass().getResource("/Images/lobby_ntext.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        //EXIT 버튼
+        // 오른쪽 패널
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(null);
+        rightPanel.setBounds(684, 90, 181, 448);
+        rightPanel.setOpaque(false);
+        add(rightPanel);
+
+        // EXIT 버튼
         JButton backButton = new JButton("EXIT");
-        backButton.setBounds(701, 92, 136, 45);
-        backButton.setContentAreaFilled(false); // 배경 비활성화
-        backButton.setBorderPainted(false);    // 테두리 비활성화
-        backButton.setFocusPainted(false);     // 포커스 외형 비활성화
-        backButton.setOpaque(false);           // 투명한 버튼
+        backButton.setBounds(16, 2, 135, 43); // 위치는 RightPanel 내부 기준
+        backButton.setContentAreaFilled(false);
         backButton.setFont(new Font("Arial", Font.BOLD, 20));
         backButton.addActionListener(e -> {
             parentFrame.setContentPane(new LoginPanel(parentFrame, musicPlayer));
             parentFrame.revalidate();
             parentFrame.repaint();
         });
-        add(backButton);
-        
-        //방만들기 버튼
-        JButton CRoomButton = new JButton("방만들기");
-        CRoomButton.setBounds(701, 160, 136, 45);
-        CRoomButton.setContentAreaFilled(false); // 배경 비활성화
-        CRoomButton.setBorderPainted(false);    // 테두리 비활성화
-        CRoomButton.setFocusPainted(false);     // 포커스 외형 비활성화
-        CRoomButton.setOpaque(false);           // 투명한 버튼
-        CRoomButton.setFont(new Font("Malgun Gothic", Font.BOLD, 20));
-        /*CRoomButton.addActionListener(e -> {
-            parentFrame.setContentPane(new CRoomPanel(parentFrame, musicPlayer));
-            parentFrame.revalidate();
-            parentFrame.repaint();
-          }); */
-        add(CRoomButton);
-        
+        rightPanel.add(backButton);
+
+        // 방만들기 버튼
+        JButton cRoomButton = new JButton("방만들기");
+        cRoomButton.setBounds(16, 73, 135, 43); // 위치는 RightPanel 내부 기준
+        cRoomButton.setContentAreaFilled(false);
+        cRoomButton.setFont(new Font("Malgun Gothic", Font.BOLD, 20));
+        rightPanel.add(cRoomButton);
+
         // 설정 버튼
         JButton settingsButton = new JButton("");
-        settingsButton.setBounds(806, 455, 55, 55); // 좌하단에 50x50 크기로 설정
-        settingsButton.setContentAreaFilled(false); // 배경 비활성화
-        settingsButton.setBorderPainted(false);    // 테두리 비활성화
-        settingsButton.setFocusPainted(false);     // 포커스 외형 비활성화
-        settingsButton.setOpaque(false);           // 투명한 버튼
-        settingsButton.setIcon(new ImageIcon("src/images/settings_icon.png")); // 아이콘 설정
+        settingsButton.setBounds(23, 150, 55, 55); // 위치는 RightPanel 내부 기준
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setBorderPainted(false);
+        settingsButton.setFocusPainted(false);
+        settingsButton.setOpaque(false);
+        settingsButton.setIcon(new ImageIcon("src/images/settings_icon.png"));
         settingsButton.addActionListener(e -> {
-            // 설정 패널 호출
             if (parentFrame != null && musicPlayer != null) {
                 SettingsPanel settingsPanel = new SettingsPanel(parentFrame, musicPlayer);
                 parentFrame.getLayeredPane().add(settingsPanel, JLayeredPane.POPUP_LAYER);
@@ -121,7 +105,26 @@ public class LobbyPanel extends JPanel {
                 parentFrame.getLayeredPane().repaint();
             }
         });
-        add(settingsButton);
+        rightPanel.add(settingsButton);
+        
+        JPanel CenterPanel = new JPanel();
+        CenterPanel.setBounds(275, 90, 377, 275);
+        CenterPanel.setLayout(null);
+        CenterPanel.setOpaque(false);
+        add(CenterPanel);
+        
+        JPanel Chatpanel = new JPanel();
+        Chatpanel.setBounds(248, 369, 424, 150);
+        Chatpanel.setLayout(null);
+        Chatpanel.setOpaque(false);
+        add(Chatpanel);
+
+        // 배경 이미지 로드
+        try {
+            backgroundImage = ImageIO.read(getClass().getResource("/Images/lobby_ntext.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
