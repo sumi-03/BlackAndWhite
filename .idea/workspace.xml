@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="16:10으로 gameframe 해상도 변경">
-      <change afterPath="$PROJECT_DIR$/src/Game/login.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Game/login.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Game/loginpanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Images/gamebg_sample.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Images/login_sample.png" afterDir="false" />
+    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="MusicPlayer 추가">
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/loginpanel.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,9 +43,12 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/sumi-03/BlackAndWhite.git&quot;,
-    &quot;accountId&quot;: &quot;8bead774-b778-4f55-ae1e-bb937bcb3c63&quot;
+    &quot;accountId&quot;: &quot;435579b0-fa66-4a9d-a420-41a5b34ced2d&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -64,9 +63,11 @@
     "Application.App.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "355",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/gnltj/git/BlackAndWhite",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -75,7 +76,7 @@
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "project.propGUI",
     "vue.rearranger.settings.migration": "true",
     "애플리케이션.App.executor": "Run",
     "애플리케이션.LoginPanel.executor": "Run",
@@ -119,6 +120,8 @@
       <workItem from="1731565886964" duration="92000" />
       <workItem from="1731565999553" duration="1394000" />
       <workItem from="1732088434724" duration="2037000" />
+      <workItem from="1733228476301" duration="1421000" />
+      <workItem from="1733229910056" duration="6283000" />
     </task>
     <task id="LOCAL-00001" summary="16:10으로 gameframe 해상도 변경">
       <option name="closed" value="true" />
@@ -128,14 +131,73 @@
       <option name="project" value="LOCAL" />
       <updated>1731561185004</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="bgm 추가">
+      <option name="closed" value="true" />
+      <created>1733228933864</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733228933864</updated>
+    </task>
+    <task id="LOCAL-00003" summary="GameFrame 수정">
+      <option name="closed" value="true" />
+      <created>1733236023373</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236023373</updated>
+    </task>
+    <task id="LOCAL-00004" summary="LoginPanel 추가">
+      <option name="closed" value="true" />
+      <created>1733236133740</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236133740</updated>
+    </task>
+    <task id="LOCAL-00005" summary="MusicPlayer 추가">
+      <option name="closed" value="true" />
+      <created>1733236164528</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236164528</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="16:10으로 gameframe 해상도 변경" />
-    <option name="LAST_COMMIT_MESSAGE" value="16:10으로 gameframe 해상도 변경" />
+    <MESSAGE value="bgm 추가" />
+    <MESSAGE value="GameFrame 수정" />
+    <MESSAGE value="LoginPanel 추가" />
+    <MESSAGE value="MusicPlayer 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="MusicPlayer 추가" />
   </component>
 </project>
