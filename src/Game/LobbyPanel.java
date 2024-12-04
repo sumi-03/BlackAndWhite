@@ -73,7 +73,9 @@ public class LobbyPanel extends JPanel {
         // EXIT 버튼
         JButton backButton = new JButton("EXIT");
         backButton.setBounds(16, 2, 135, 43); // 위치는 RightPanel 내부 기준
-        backButton.setContentAreaFilled(false);
+        backButton.setBackground(Color.WHITE);
+        backButton.setOpaque(true);
+        backButton.setForeground(Color.BLACK);
         backButton.setFont(new Font("Arial", Font.BOLD, 20));
         backButton.addActionListener(e -> {
             parentFrame.setContentPane(new LoginPanel(parentFrame, musicPlayer));
@@ -85,7 +87,10 @@ public class LobbyPanel extends JPanel {
         // 방만들기 버튼
         JButton cRoomButton = new JButton("방만들기");
         cRoomButton.setBounds(16, 73, 135, 43); // 위치는 RightPanel 내부 기준
-        cRoomButton.setContentAreaFilled(false);
+        cRoomButton.setBackground(Color.WHITE);
+        cRoomButton.setOpaque(true);
+        cRoomButton.setForeground(Color.BLACK);
+        cRoomButton.setFont(new Font("Arial", Font.BOLD, 20));
         cRoomButton.setFont(new Font("Malgun Gothic", Font.BOLD, 20));
         rightPanel.add(cRoomButton);
 
@@ -121,7 +126,7 @@ public class LobbyPanel extends JPanel {
 
         // 배경 이미지 로드
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/Images/lobby_ntext.png"));
+            backgroundImage = ImageIO.read(getClass().getResource("/Images/Lobby_img.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

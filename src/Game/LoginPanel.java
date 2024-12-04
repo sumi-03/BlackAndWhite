@@ -20,7 +20,7 @@ public class LoginPanel extends JPanel {
 
         // 배경 이미지 로드
         try {
-            backgroundImage = ImageIO.read(new File("src/images/login_sample.png"));
+            backgroundImage = ImageIO.read(new File("src/images/Login_img.png"));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("배경 이미지를 로드할 수 없습니다.");
