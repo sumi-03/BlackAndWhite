@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="SettingsPanel 추가">
-      <change afterPath="$PROJECT_DIR$/src/Images/Lobby_img.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Images/Login_img.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Images/gameScreen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Images/lobbyScreen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Images/loginScreen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Images/waitingScreen.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/LobbyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LobbyPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LoginPanel.java" afterDir="false" />
@@ -42,12 +44,12 @@
     &quot;author&quot;: &quot;Hwisun9&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/sumi-03/BlackAndWhite.git",
-    "accountId": "8bead774-b778-4f55-ae1e-bb937bcb3c63"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sumi-03/BlackAndWhite.git&quot;,
+    &quot;accountId&quot;: &quot;435579b0-fa66-4a9d-a420-41a5b34ced2d&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -87,7 +89,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\hansung\git\BlackAndWhite\src\Images" />
+      <recent name="$PROJECT_DIR$/src/Images" />
       <recent name="C:\Users\hansung\IdeaProjects\BlackAndWhite\src\Images" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
@@ -125,7 +127,6 @@
       <workItem from="1732088434724" duration="2037000" />
       <workItem from="1733228476301" duration="1421000" />
       <workItem from="1733229910056" duration="9253000" />
-      <workItem from="1733298719619" duration="2459000" />
     </task>
     <task id="LOCAL-00001" summary="16:10으로 gameframe 해상도 변경">
       <option name="closed" value="true" />

@@ -126,7 +126,7 @@ public class LobbyPanel extends JPanel {
 
         // 배경 이미지 로드
         try {
-            backgroundImage = ImageIO.read(getClass().getResource("/Images/Lobby_img.png"));
+            backgroundImage = ImageIO.read(getClass().getResource("/Images/lobbyScreen.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

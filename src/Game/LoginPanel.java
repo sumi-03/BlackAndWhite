@@ -20,7 +20,7 @@ public class LoginPanel extends JPanel {
 
         // 배경 이미지 로드
         try {
-            backgroundImage = ImageIO.read(new File("src/images/Login_img.png"));
+            backgroundImage = ImageIO.read(new File("src/images/loginScreen.png"));
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("배경 이미지를 로드할 수 없습니다.");
@@ -28,7 +28,7 @@ public class LoginPanel extends JPanel {
 
         // 이름 입력 필드
         JTextField nameField = new JTextField("이름을 입력하세요");
-        nameField.setBounds(368, 280, 229, 33);
+        nameField.setBounds(441, 335, 200, 30);
         nameField.setHorizontalAlignment(SwingConstants.CENTER);
         nameField.setForeground(Color.GRAY);
         nameField.setFont(new Font("Malgun Gothic", Font.BOLD, 16));
