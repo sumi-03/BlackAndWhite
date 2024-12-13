@@ -31,7 +31,7 @@ public class LobbyPanel extends JPanel {
         // 접속 유저 목록 패널
         userListPanel = new JPanel();
         userListPanel.setLayout(null);
-        userListPanel.setBounds(40, 196, 128, 280);
+        userListPanel.setBounds(38, 196, 128, 280);
         userListPanel.setOpaque(false);
         leftPanel.add(userListPanel);
 
@@ -52,6 +52,13 @@ public class LobbyPanel extends JPanel {
         cRoomButton.setBorderPainted(false);
         cRoomButton.setFocusPainted(false);
         cRoomButton.setOpaque(false);
+        cRoomButton.addActionListener(e -> {
+            CreateRoomPanel createRoomPanel = new CreateRoomPanel(parentFrame);
+            parentFrame.getLayeredPane().add(createRoomPanel, JLayeredPane.POPUP_LAYER);
+            parentFrame.getLayeredPane().revalidate();
+            parentFrame.getLayeredPane().repaint();
+        });
+        rightPanel.add(cRoomButton);
         rightPanel.add(cRoomButton);
 
         // EXIT 버튼
@@ -70,13 +77,22 @@ public class LobbyPanel extends JPanel {
 
         // 설정 버튼
         JButton settingsButton = new JButton("");
+        settingsButton.setEnabled(true); // 버튼 활성화
         settingsButton.setBounds(64, 456, 79, 68);
-        settingsButton.setContentAreaFilled(false);
-        settingsButton.setBorderPainted(false);
-        settingsButton.setFocusPainted(false);
-        settingsButton.setOpaque(false);
+        settingsButton.setContentAreaFilled(false); 
+        settingsButton.setBorderPainted(false);    
+        settingsButton.setFocusPainted(false);     
+        settingsButton.setOpaque(false);            
         rightPanel.add(settingsButton);
 
+        // 클릭 이벤트 리스너
+        settingsButton.addActionListener(e -> {
+            SettingsPanel settingsPanel = new SettingsPanel(parentFrame, musicPlayer);
+            parentFrame.getLayeredPane().add(settingsPanel, JLayeredPane.POPUP_LAYER);
+            parentFrame.getLayeredPane().revalidate();
+            parentFrame.getLayeredPane().repaint();
+        });
+        
         // 채팅 패널
         JPanel chatPanel = new JPanel();
         chatPanel.setBounds(248, 381, 490, 136);
@@ -95,13 +111,11 @@ public class LobbyPanel extends JPanel {
         JTextArea textArea = new JTextArea();
         textArea.setEditable(false);
         textArea.setOpaque(false);
-        textArea.setForeground(Color.BLACK);
 
         // 채팅 입력 JTextField
         JTextField inputField = new JTextField();
         inputField.setBounds(91, 97, 300, 23);
         inputField.setOpaque(false);
-        inputField.setForeground(Color.BLACK);
         inputField.setBorder(BorderFactory.createEmptyBorder());
         chatPanel.add(inputField);
 
@@ -112,8 +126,6 @@ public class LobbyPanel extends JPanel {
         sendButton.setBorderPainted(false);
         sendButton.setFocusPainted(false);
         sendButton.setOpaque(false);
-        sendButton.setForeground(Color.BLACK);
-        sendButton.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
         chatPanel.add(sendButton);
 
         // 전송 버튼 이벤트 리스너

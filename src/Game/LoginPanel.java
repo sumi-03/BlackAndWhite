@@ -49,6 +49,9 @@ public class LoginPanel extends JPanel {
             }
         });
         add(nameField);
+        
+        setFocusable(true);
+        requestFocusInWindow();
 
         // 로그인 버튼
         JButton loginButton = new JButton("");
@@ -66,6 +69,11 @@ public class LoginPanel extends JPanel {
                 JOptionPane.showMessageDialog(this, "이름을 입력해주세요.", "경고!", JOptionPane.WARNING_MESSAGE);
             }
         });
+        
+        // 엔터 키 이벤트 추가
+        nameField.addActionListener(e -> {
+            loginButton.doClick(); // 로그인 버튼 클릭 동작 실행
+        });
         add(loginButton);
 
         // 설정 버튼
@@ -75,7 +83,6 @@ public class LoginPanel extends JPanel {
         settingsButton.setBorderPainted(false);    // 테두리 비활성화
         settingsButton.setFocusPainted(false);     // 포커스 외형 비활성화
         settingsButton.setOpaque(false);           // 투명한 버튼
-        settingsButton.setIcon(new ImageIcon("src/images/settings_icon.png")); // 아이콘 설정
         settingsButton.addActionListener(e -> {
             // 설정 패널 호출
             if (parentFrame != null && musicPlayer != null) {

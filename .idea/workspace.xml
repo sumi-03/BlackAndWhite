@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="SettingsPanel 추가">
+    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="소켓 기본 구조 설계">
+      <change afterPath="$PROJECT_DIR$/src/Game/CreateRoomPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/LobbyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LobbyPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LoginPanel.java" afterDir="false" />
     </list>
@@ -97,7 +97,7 @@
       <recent name="C:\Users\hansung\IdeaProjects\BlackAndWhite\src\Images" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="애플리케이션.Client1">
     <configuration name="Client1" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Game.App" />
       <module name="BlackAndWhite" />
@@ -231,7 +231,23 @@
       <option name="project" value="LOCAL" />
       <updated>1733236300834</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Windows 환경에 맞게 변경">
+      <option name="closed" value="true" />
+      <created>1734095709485</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1734095709485</updated>
+    </task>
+    <task id="LOCAL-00011" summary="소켓 기본 구조 설계">
+      <option name="closed" value="true" />
+      <created>1734095751884</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1734095751884</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,6 +286,8 @@
     <MESSAGE value="img 추가" />
     <MESSAGE value="LobbyPanel 추가" />
     <MESSAGE value="SettingsPanel 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="SettingsPanel 추가" />
+    <MESSAGE value="Windows 환경에 맞게 변경" />
+    <MESSAGE value="소켓 기본 구조 설계" />
+    <option name="LAST_COMMIT_MESSAGE" value="소켓 기본 구조 설계" />
   </component>
 </project>
