@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="SettingsPanel 추가">
-      <change afterPath="$PROJECT_DIR$/src/Images/gameScreen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Images/lobbyScreen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Images/loginScreen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Images/waitingScreen.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/LobbyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LobbyPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LoginPanel.java" afterDir="false" />
     </list>
@@ -62,37 +59,71 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.App.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;355&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/gnltj/git/BlackAndWhite&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propGUI&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
-    &quot;애플리케이션.App.executor&quot;: &quot;Run&quot;,
-    &quot;애플리케이션.LoginPanel.executor&quot;: &quot;Run&quot;,
-    &quot;애플리케이션.loginpanel.executor&quot;: &quot;Run&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.App.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "355",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/gnltj/git/BlackAndWhite",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "project.propGUI",
+    "vue.rearranger.settings.migration": "true",
+    "애플리케이션.App.executor": "Run",
+    "애플리케이션.Client1.executor": "Run",
+    "애플리케이션.Client2.executor": "Run",
+    "애플리케이션.LoginPanel.executor": "Run",
+    "애플리케이션.Server.executor": "Run",
+    "애플리케이션.StartServer.executor": "Run",
+    "애플리케이션.loginpanel.executor": "Run"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\gnltj\git\BlackAndWhite\src\ClientHandler" />
+      <recent name="C:\Users\gnltj\git\BlackAndWhite\src\Clinet" />
+      <recent name="C:\Users\gnltj\git\BlackAndWhite\src\Server" />
       <recent name="$PROJECT_DIR$/src/Images" />
       <recent name="C:\Users\hansung\IdeaProjects\BlackAndWhite\src\Images" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Client1" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Game.App" />
+      <module name="BlackAndWhite" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Client2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Game.App" />
+      <module name="BlackAndWhite" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Server.StartServer" />
+      <module name="BlackAndWhite" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="애플리케이션.Server" />
+      <item itemvalue="애플리케이션.Client2" />
+      <item itemvalue="애플리케이션.Client1" />
+    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

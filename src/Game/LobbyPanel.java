@@ -8,6 +8,7 @@ import java.io.IOException;
 public class LobbyPanel extends JPanel {
     private Image backgroundImage;
     private MusicPlayer musicPlayer;
+    private JPanel userListPanel;
 
     public LobbyPanel(GameFrame parentFrame, MusicPlayer musicPlayer, String playerName) {
         setPreferredSize(new Dimension(960, 600));
@@ -17,66 +18,49 @@ public class LobbyPanel extends JPanel {
         // 왼쪽 패널
         JPanel leftPanel = new JPanel();
         leftPanel.setLayout(null);
-        leftPanel.setBounds(55, 90, 181, 448);
+        leftPanel.setBounds(55, 10, 181, 580);
         leftPanel.setOpaque(false);
         add(leftPanel);
 
         JLabel profileLabel = new JLabel(playerName, SwingConstants.CENTER);
         profileLabel.setForeground(Color.WHITE);
-        profileLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 16));
-        profileLabel.setBounds(17, 10, 159, 79);
+        profileLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 18));
+        profileLabel.setBounds(34, 85, 128, 31);
         leftPanel.add(profileLabel);
 
         // 접속 유저 목록 패널
-        JPanel userListPanel = new JPanel();
-        userListPanel.setLayout(null); // 절대 위치로 설정
-        userListPanel.setBounds(34, 125, 128, 280); // 위치 및 크기 설정
+        userListPanel = new JPanel();
+        userListPanel.setLayout(null);
+        userListPanel.setBounds(40, 196, 128, 280);
         userListPanel.setOpaque(false);
-
-        // 각 유저 패널의 높이 계산
-        int panelHeight = userListPanel.getHeight() / 8;
-        int panelWidth = userListPanel.getWidth();
-        int verticalGap = 2; // 패널 간의 간격
-
-        for (int i = 0; i < 5; i++) {
-            JPanel userPanel = new JPanel(null); // 절대 위치로 설정
-            userPanel.setOpaque(false);
-            userPanel.setBounds(0, i * (panelHeight + verticalGap), panelWidth, panelHeight - verticalGap);
-
-            JLabel userLabel = new JLabel("유저 " + (i + 1));
-            userLabel.setForeground(Color.BLACK);
-            userLabel.setBounds(5, 5, panelWidth - 40, panelHeight - 15); // 왼쪽에 배치
-            userPanel.add(userLabel);
-
-            JButton messageButton = new JButton();
-            messageButton.setIcon(new ImageIcon("src/images/mail_icon.png")); // 아이콘 설정
-            messageButton.setBounds(panelWidth - 50, 5, 35, panelHeight - 12); // 오른쪽에 배치
-            userPanel.add(messageButton);
-
-            userListPanel.add(userPanel);
-        }
         leftPanel.add(userListPanel);
 
-        JLabel label = new JLabel("접속유저", SwingConstants.CENTER);
-        label.setBounds(32, 85, 128, 30);
-        label.setForeground(Color.BLACK);
-        label.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
-        leftPanel.add(label);
+        // 초기 유저 목록 설정
+        updateUserList(new String[]{});
 
         // 오른쪽 패널
         JPanel rightPanel = new JPanel();
         rightPanel.setLayout(null);
-        rightPanel.setBounds(684, 90, 181, 448);
+        rightPanel.setBounds(750, 10, 181, 580);
         rightPanel.setOpaque(false);
         add(rightPanel);
 
+        // 방 만들기 버튼
+        JButton cRoomButton = new JButton("");
+        cRoomButton.setBounds(35, 81, 108, 34);
+        cRoomButton.setContentAreaFilled(false);
+        cRoomButton.setBorderPainted(false);
+        cRoomButton.setFocusPainted(false);
+        cRoomButton.setOpaque(false);
+        rightPanel.add(cRoomButton);
+
         // EXIT 버튼
-        JButton backButton = new JButton("EXIT");
-        backButton.setBounds(16, 2, 135, 43); // 위치는 RightPanel 내부 기준
-        backButton.setBackground(Color.WHITE);
-        backButton.setOpaque(true);
-        backButton.setForeground(Color.BLACK);
-        backButton.setFont(new Font("Arial", Font.BOLD, 20));
+        JButton backButton = new JButton("");
+        backButton.setBounds(35, 28, 108, 34);
+        backButton.setContentAreaFilled(false);
+        backButton.setBorderPainted(false);
+        backButton.setFocusPainted(false);
+        backButton.setOpaque(false);
         backButton.addActionListener(e -> {
             parentFrame.setContentPane(new LoginPanel(parentFrame, musicPlayer));
             parentFrame.revalidate();
@@ -84,45 +68,56 @@ public class LobbyPanel extends JPanel {
         });
         rightPanel.add(backButton);
 
-        // 방만들기 버튼
-        JButton cRoomButton = new JButton("방만들기");
-        cRoomButton.setBounds(16, 73, 135, 43); // 위치는 RightPanel 내부 기준
-        cRoomButton.setBackground(Color.WHITE);
-        cRoomButton.setOpaque(true);
-        cRoomButton.setForeground(Color.BLACK);
-        cRoomButton.setFont(new Font("Arial", Font.BOLD, 20));
-        cRoomButton.setFont(new Font("Malgun Gothic", Font.BOLD, 20));
-        rightPanel.add(cRoomButton);
-
         // 설정 버튼
         JButton settingsButton = new JButton("");
-        settingsButton.setBounds(23, 150, 55, 55); // 위치는 RightPanel 내부 기준
+        settingsButton.setBounds(64, 456, 79, 68);
         settingsButton.setContentAreaFilled(false);
         settingsButton.setBorderPainted(false);
         settingsButton.setFocusPainted(false);
         settingsButton.setOpaque(false);
-        settingsButton.setIcon(new ImageIcon("src/images/settings_icon.png"));
-        settingsButton.addActionListener(e -> {
-            if (parentFrame != null && musicPlayer != null) {
-                SettingsPanel settingsPanel = new SettingsPanel(parentFrame, musicPlayer);
-                parentFrame.getLayeredPane().add(settingsPanel, JLayeredPane.POPUP_LAYER);
-                parentFrame.getLayeredPane().revalidate();
-                parentFrame.getLayeredPane().repaint();
-            }
-        });
         rightPanel.add(settingsButton);
-        
-        JPanel CenterPanel = new JPanel();
-        CenterPanel.setBounds(275, 90, 377, 275);
-        CenterPanel.setLayout(null);
-        CenterPanel.setOpaque(false);
-        add(CenterPanel);
-        
-        JPanel Chatpanel = new JPanel();
-        Chatpanel.setBounds(248, 369, 424, 150);
-        Chatpanel.setLayout(null);
-        Chatpanel.setOpaque(false);
-        add(Chatpanel);
+
+        // 채팅 패널
+        JPanel chatPanel = new JPanel();
+        chatPanel.setBounds(248, 381, 490, 136);
+        chatPanel.setOpaque(false);
+        chatPanel.setLayout(null);
+        add(chatPanel);
+
+        // 채팅 표시용 JTextArea
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(80, 5, 396, 88);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        chatPanel.add(scrollPane);
+
+        JTextArea textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setOpaque(false);
+        textArea.setForeground(Color.BLACK);
+
+        // 채팅 입력 JTextField
+        JTextField inputField = new JTextField();
+        inputField.setBounds(91, 97, 300, 23);
+        inputField.setOpaque(false);
+        inputField.setForeground(Color.BLACK);
+        inputField.setBorder(BorderFactory.createEmptyBorder());
+        chatPanel.add(inputField);
+
+        // 전송 버튼
+        JButton sendButton = new JButton("");
+        sendButton.setBounds(404, 95, 68, 30);
+        sendButton.setContentAreaFilled(false);
+        sendButton.setBorderPainted(false);
+        sendButton.setFocusPainted(false);
+        sendButton.setOpaque(false);
+        sendButton.setForeground(Color.BLACK);
+        sendButton.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
+        chatPanel.add(sendButton);
+
+        // 전송 버튼 이벤트 리스너
+        //sendButton.addActionListener(e -> {});
 
         // 배경 이미지 로드
         try {
@@ -132,14 +127,39 @@ public class LobbyPanel extends JPanel {
         }
     }
 
+    // 유저 목록을 업데이트하는 메서드
+    public void updateUserList(String[] users) {
+        SwingUtilities.invokeLater(() -> {
+            userListPanel.removeAll(); // 기존 유저 목록 제거
+
+            int panelHeight = userListPanel.getHeight() / 8;
+            int panelWidth = userListPanel.getWidth();
+            int verticalGap = 2;
+
+            for (int i = 0; i < users.length; i++) {
+                JPanel userPanel = new JPanel(null);
+                userPanel.setOpaque(false);
+                userPanel.setBounds(0, i * (panelHeight + verticalGap), panelWidth, panelHeight - verticalGap);
+
+                JLabel userLabel = new JLabel(users[i]);
+                userLabel.setForeground(Color.BLACK);
+                userLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
+                userLabel.setBounds(5, 5, panelWidth - 40, panelHeight - 15);
+                userPanel.add(userLabel);
+
+                userListPanel.add(userPanel);
+            }
+
+            userListPanel.revalidate();
+            userListPanel.repaint();
+        });
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        } else {
-            g.setColor(Color.LIGHT_GRAY);
-            g.fillRect(0, 0, getWidth(), getHeight());
         }
     }
 }

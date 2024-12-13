@@ -11,7 +11,6 @@ public class LoginPanel extends JPanel {
     private final MusicPlayer musicPlayer;
     private Image backgroundImage;
 
-    // 생성자
     public LoginPanel(GameFrame parentFrame, MusicPlayer musicPlayer) {
         this.parentFrame = parentFrame;
         this.musicPlayer = musicPlayer;
@@ -23,12 +22,12 @@ public class LoginPanel extends JPanel {
             backgroundImage = ImageIO.read(new File("src/images/loginScreen.png"));
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("배경 이미지를 로드할 수 없습니다.");
         }
 
         // 이름 입력 필드
         JTextField nameField = new JTextField("이름을 입력하세요");
-        nameField.setBounds(441, 335, 200, 30);
+        nameField.setBounds(423, 330, 200, 24);
+        nameField.setBorder(BorderFactory.createEmptyBorder());
         nameField.setHorizontalAlignment(SwingConstants.CENTER);
         nameField.setForeground(Color.GRAY);
         nameField.setFont(new Font("Malgun Gothic", Font.BOLD, 16));
@@ -54,29 +53,17 @@ public class LoginPanel extends JPanel {
         // 로그인 버튼
         JButton loginButton = new JButton("");
         loginButton.setBounds(380, 407, 210, 55);
-        loginButton.setContentAreaFilled(false); // 배경 채우기 비활성화
-        loginButton.setBorderPainted(false);    // 테두리 비활성화
-        loginButton.setFocusPainted(false);     // 포커스 외형 비활성화
-        loginButton.setOpaque(false);           // 완전히 투명하게 설정
+        loginButton.setContentAreaFilled(false);
+        loginButton.setBorderPainted(false);
+        loginButton.setFocusPainted(false);
+        loginButton.setOpaque(false);
         loginButton.addActionListener(e -> {
-            String name = nameField.getText().trim();
-            if (name.isEmpty() || name.equals("이름을 입력하세요")) {
-                // 경고 다이얼로그
-                JOptionPane.showMessageDialog(
-                        this,
-                        "이름을 입력해주세요.",
-                        "경고!",
-                        JOptionPane.WARNING_MESSAGE
-                );
+            String playerName = nameField.getText().trim();
+            if (!playerName.isEmpty() && !playerName.equals("이름을 입력하세요")) {
+                parentFrame.initializeClient(playerName);
+                parentFrame.showLobbyPanel(playerName);
             } else {
-                if (parentFrame != null && musicPlayer != null) {
-                    // 로비 패널로 이동
-                    parentFrame.setContentPane(new LobbyPanel(parentFrame, musicPlayer, name));
-                    parentFrame.revalidate();
-                    parentFrame.repaint();
-                } else {
-                    System.out.println("parentFrame 또는 musicPlayer가 없습니다.");
-                }
+                JOptionPane.showMessageDialog(this, "이름을 입력해주세요.", "경고!", JOptionPane.WARNING_MESSAGE);
             }
         });
         add(loginButton);
@@ -104,12 +91,8 @@ public class LoginPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
-        // 배경 이미지 그리기
         if (backgroundImage != null) {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-        } else {
-            System.out.println("배경 이미지가 로드되지 않았습니다.");
         }
     }
 }
