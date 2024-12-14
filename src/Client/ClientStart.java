@@ -49,10 +49,15 @@ public class ClientStart {
                     msgFromServer = bufferedReader.readLine();
                     System.out.println("Received from Server: " + msgFromServer); // 디버그 출력
 
-                    if (msgFromServer != null && msgFromServer.startsWith("USERLIST:")) {
-                        String[] users = msgFromServer.substring(9).split(",");
-                        System.out.println("Parsed User List: " + String.join(", ", users)); // 디버그 출력
-                        gameFrame.updateUserList(users);
+                    if (msgFromServer != null) {
+                        // 메시지가 유저 목록인지 일반 메시지인지 구분
+                        if (msgFromServer.startsWith("USERLIST:")) {
+                            String[] users = msgFromServer.substring(9).split(",");
+                            gameFrame.updateUserList(users);
+                        } else {
+                            // 일반 메시지는 로비의 채팅창에 전달
+                            gameFrame.appendMessageToLobby(msgFromServer);
+                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -71,6 +76,17 @@ public class ClientStart {
             if (socket != null) socket.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void closeConnection() throws IOException {
+        if (socket != null) {
+            bufferedWriter.write("EXIT"); // 서버에 종료 알림 메시지
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+
+            socket.close();
+            System.out.println("Connection closed.");
         }
     }
 }

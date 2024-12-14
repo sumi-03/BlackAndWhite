@@ -1,16 +1,19 @@
 package Game;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class LobbyPanel extends JPanel {
+    private final GameFrame parentFrame;
     private Image backgroundImage;
     private MusicPlayer musicPlayer;
     private JPanel userListPanel;
+    private JTextArea textArea;
 
     public LobbyPanel(GameFrame parentFrame, MusicPlayer musicPlayer, String playerName) {
+        this.parentFrame = parentFrame;
         setPreferredSize(new Dimension(960, 600));
         setLayout(null);
         this.musicPlayer = musicPlayer;
@@ -69,9 +72,17 @@ public class LobbyPanel extends JPanel {
         backButton.setFocusPainted(false);
         backButton.setOpaque(false);
         backButton.addActionListener(e -> {
-            parentFrame.setContentPane(new LoginPanel(parentFrame, musicPlayer));
-            parentFrame.revalidate();
-            parentFrame.repaint();
+            try {
+                // 클라이언트 연결 종료
+                this.parentFrame.getClient().closeConnection();
+
+                // 초기 화면으로 돌아가기
+                parentFrame.setContentPane(new LoginPanel(parentFrame, musicPlayer));
+                parentFrame.revalidate();
+                parentFrame.repaint();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
         rightPanel.add(backButton);
 
@@ -79,10 +90,10 @@ public class LobbyPanel extends JPanel {
         JButton settingsButton = new JButton("");
         settingsButton.setEnabled(true); // 버튼 활성화
         settingsButton.setBounds(64, 456, 79, 68);
-        settingsButton.setContentAreaFilled(false); 
-        settingsButton.setBorderPainted(false);    
-        settingsButton.setFocusPainted(false);     
-        settingsButton.setOpaque(false);            
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setBorderPainted(false);
+        settingsButton.setFocusPainted(false);
+        settingsButton.setOpaque(false);
         rightPanel.add(settingsButton);
 
         // 클릭 이벤트 리스너
@@ -92,7 +103,7 @@ public class LobbyPanel extends JPanel {
             parentFrame.getLayeredPane().revalidate();
             parentFrame.getLayeredPane().repaint();
         });
-        
+
         // 채팅 패널
         JPanel chatPanel = new JPanel();
         chatPanel.setBounds(248, 381, 490, 136);
@@ -101,16 +112,16 @@ public class LobbyPanel extends JPanel {
         add(chatPanel);
 
         // 채팅 표시용 JTextArea
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(80, 5, 396, 88);
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setOpaque(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setBounds(80, 18, 396, 77);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         chatPanel.add(scrollPane);
-
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setOpaque(false);
 
         // 채팅 입력 JTextField
         JTextField inputField = new JTextField();
@@ -129,7 +140,19 @@ public class LobbyPanel extends JPanel {
         chatPanel.add(sendButton);
 
         // 전송 버튼 이벤트 리스너
-        //sendButton.addActionListener(e -> {});
+        sendButton.addActionListener(e -> {
+
+            String text = inputField.getText().trim();
+            if (!text.isEmpty()) {
+                
+                // 서버로 메시지 전송
+                this.parentFrame.getClient().sendMessage(text);
+
+                // 입력 필드 초기화
+                inputField.setText("");
+                inputField.requestFocus();
+            }
+        });
 
         // 배경 이미지 로드
         try {
@@ -137,6 +160,13 @@ public class LobbyPanel extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void appendMessage(String message) {
+        SwingUtilities.invokeLater(() -> {
+            textArea.append(message + "\n");
+            textArea.setCaretPosition(textArea.getDocument().getLength()); // 자동 스크롤
+        });
     }
 
     // 유저 목록을 업데이트하는 메서드
@@ -174,4 +204,6 @@ public class LobbyPanel extends JPanel {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
+
+
 }

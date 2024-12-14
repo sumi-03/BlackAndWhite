@@ -18,16 +18,7 @@ public class GameFrame extends JFrame {
         setResizable(false);
 
         // WAV 파일 목록
-        String[] wavFiles = {
-                "EvenFloor.wav",
-                "Heyday.wav",
-                "IDIOT.wav",
-                "080509.wav",
-                "Melodie.wav",
-                "SunsetStrip.wav",
-                "ToadSong.wav",
-                "Wasted.wav"
-        };
+        String[] wavFiles = {"EvenFloor.wav", "Heyday.wav", "IDIOT.wav", "080509.wav", "Melodie.wav", "SunsetStrip.wav", "ToadSong.wav", "Wasted.wav"};
         // MusicPlayer 초기화 및 재생 시작
         musicPlayer = new MusicPlayer(wavFiles);
         musicPlayer.playNextSong();
@@ -73,13 +64,26 @@ public class GameFrame extends JFrame {
             pendingUserList = users;
         }
     }
-    
+
+    // 서버에서 받은 메시지를 로비 채팅창에 추가
+    public void appendMessageToLobby(String message) {
+        if (lobbyPanel != null) {
+            lobbyPanel.appendMessage(message);
+        }
+    }
+
+    // GameFrame 클래스에 추가
+    public ClientStart getClient() {
+        return client;
+    }
+
+
     // 메시지 전송 
     // public void sendMessage(String message) {}
-    
+
     // 서버로부터 받은 메시지를 Lobby 채팅창에 전달
     // public void appendMessage(String message) {}
-    
-    
+
+
 }
 
