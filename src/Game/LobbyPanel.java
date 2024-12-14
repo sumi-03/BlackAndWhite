@@ -1,21 +1,19 @@
 package Game;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class LobbyPanel extends JPanel {
+    private final GameFrame parentFrame;
     private Image backgroundImage;
     private MusicPlayer musicPlayer;
     private JPanel userListPanel;
-    private JPanel roomListPanel;
-    private GameFrame parentFrame;
-    private JPanel[] roomPanels;
+    private JTextArea textArea;
 
     public LobbyPanel(GameFrame parentFrame, MusicPlayer musicPlayer, String playerName) {
-        this.parentFrame = parentFrame; // parentFrame 초기화
+        this.parentFrame = parentFrame;
         setPreferredSize(new Dimension(960, 600));
         setLayout(null);
         this.musicPlayer = musicPlayer;
@@ -36,9 +34,8 @@ public class LobbyPanel extends JPanel {
         // 접속 유저 목록 패널
         userListPanel = new JPanel();
         userListPanel.setLayout(null);
-        userListPanel.setBounds(40, 196, 128, 280); // 이 크기를 확인해 보세요
+        userListPanel.setBounds(38, 196, 128, 280);
         userListPanel.setOpaque(false);
-        userListPanel.setBackground(new Color(255, 0, 0, 50)); // 배경색을 임시로 설정해 위치를 확인
         leftPanel.add(userListPanel);
 
         // 초기 유저 목록 설정
@@ -75,9 +72,17 @@ public class LobbyPanel extends JPanel {
         backButton.setFocusPainted(false);
         backButton.setOpaque(false);
         backButton.addActionListener(e -> {
-            parentFrame.setContentPane(new LoginPanel(parentFrame, musicPlayer));
-            parentFrame.revalidate();
-            parentFrame.repaint();
+            try {
+                // 클라이언트 연결 종료
+                this.parentFrame.getClient().closeConnection();
+
+                // 초기 화면으로 돌아가기
+                parentFrame.setContentPane(new LoginPanel(parentFrame, musicPlayer));
+                parentFrame.revalidate();
+                parentFrame.repaint();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
         rightPanel.add(backButton);
 
@@ -85,10 +90,10 @@ public class LobbyPanel extends JPanel {
         JButton settingsButton = new JButton("");
         settingsButton.setEnabled(true); // 버튼 활성화
         settingsButton.setBounds(64, 456, 79, 68);
-        settingsButton.setContentAreaFilled(false); 
-        settingsButton.setBorderPainted(false);    
-        settingsButton.setFocusPainted(false);     
-        settingsButton.setOpaque(false);            
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setBorderPainted(false);
+        settingsButton.setFocusPainted(false);
+        settingsButton.setOpaque(false);
         rightPanel.add(settingsButton);
 
         // 클릭 이벤트 리스너
@@ -98,7 +103,7 @@ public class LobbyPanel extends JPanel {
             parentFrame.getLayeredPane().revalidate();
             parentFrame.getLayeredPane().repaint();
         });
-        
+
         // 채팅 패널
         JPanel chatPanel = new JPanel();
         chatPanel.setBounds(248, 381, 490, 136);
@@ -107,16 +112,16 @@ public class LobbyPanel extends JPanel {
         add(chatPanel);
 
         // 채팅 표시용 JTextArea
-        JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(80, 5, 396, 88);
+        textArea = new JTextArea();
+        textArea.setEditable(false);
+        textArea.setOpaque(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setBounds(80, 18, 396, 77);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         chatPanel.add(scrollPane);
-
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
-        textArea.setOpaque(false);
 
         // 채팅 입력 JTextField
         JTextField inputField = new JTextField();
@@ -135,34 +140,19 @@ public class LobbyPanel extends JPanel {
         chatPanel.add(sendButton);
 
         // 전송 버튼 이벤트 리스너
-        //sendButton.addActionListener(e -> {});
+        sendButton.addActionListener(e -> {
 
+            String text = inputField.getText().trim();
+            if (!text.isEmpty()) {
+                
+                // 서버로 메시지 전송
+                this.parentFrame.getClient().sendMessage(text);
 
-        // 방 목록 패널
-        roomListPanel = new JPanel();
-        roomListPanel.setBounds(375, 55, 309, 299);
-        roomListPanel.setOpaque(false);
-        roomListPanel.setLayout(null);
-        add(roomListPanel);
-
-// 6개의 방 패널을 미리 생성하고 배열에 넣기
-        roomPanels = new JPanel[6];
-
-        for (int i = 0; i < roomPanels.length; i++) {
-            roomPanels[i] = new JPanel();
-            roomPanels[i].setLayout(null);
-            roomPanels[i].setBorder(BorderFactory.createLineBorder(Color.GRAY));
-            roomPanels[i].setVisible(false);
-            roomListPanel.add(roomPanels[i]);
-        }
-
-// 위치 수동 설정
-        roomPanels[0].setBounds(11, 8, 123, 71);
-        roomPanels[1].setBounds(172, 8, 123, 71);
-        roomPanels[2].setBounds(11, 114, 123, 71);
-        roomPanels[3].setBounds(172, 114, 123, 71);
-        roomPanels[4].setBounds(11, 218, 123, 71);
-        roomPanels[5].setBounds(172, 218, 123, 71);
+                // 입력 필드 초기화
+                inputField.setText("");
+                inputField.requestFocus();
+            }
+        });
 
         // 배경 이미지 로드
         try {
@@ -170,6 +160,13 @@ public class LobbyPanel extends JPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void appendMessage(String message) {
+        SwingUtilities.invokeLater(() -> {
+            textArea.append(message + "\n");
+            textArea.setCaretPosition(textArea.getDocument().getLength()); // 자동 스크롤
+        });
     }
 
     // 유저 목록을 업데이트하는 메서드
@@ -182,76 +179,23 @@ public class LobbyPanel extends JPanel {
             int verticalGap = 2;
 
             for (int i = 0; i < users.length; i++) {
-                if (!users[i].isEmpty()) {
-                    JPanel userPanel = new JPanel(null);
-                    userPanel.setOpaque(false);
-                    userPanel.setBounds(0, i * (panelHeight + verticalGap), panelWidth, panelHeight - verticalGap);
+                JPanel userPanel = new JPanel(null);
+                userPanel.setOpaque(false);
+                userPanel.setBounds(0, i * (panelHeight + verticalGap), panelWidth, panelHeight - verticalGap);
 
-                    JLabel userLabel = new JLabel(users[i]);
-                    userLabel.setForeground(Color.BLACK);
-                    userLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
-                    userLabel.setBounds(5, 5, panelWidth - 40, panelHeight - 15);
-                    userPanel.add(userLabel);
+                JLabel userLabel = new JLabel(users[i]);
+                userLabel.setForeground(Color.BLACK);
+                userLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
+                userLabel.setBounds(5, 5, panelWidth - 40, panelHeight - 15);
+                userPanel.add(userLabel);
 
-                    userListPanel.add(userPanel);
-                }
+                userListPanel.add(userPanel);
             }
 
             userListPanel.revalidate();
             userListPanel.repaint();
         });
     }
-    // 방 목록을 업데이트하는 메서드
- public void updateRoomList(List<RoomInfo> rooms) {
-     SwingUtilities.invokeLater(() -> {
-         if (roomPanels == null) {
-             System.out.println("Error: roomPanels is not initialized.");
-             return;
-         }
-
-         // 모든 방 패널 초기화
-         for (JPanel panel : roomPanels) {
-             panel.removeAll();
-             panel.setVisible(false);
-         }
-
-         // 최대 6개의 방을 순서대로 표시
-         for (int i = 0; i < Math.min(rooms.size(), roomPanels.length); i++) {
-             RoomInfo room = rooms.get(i);
-             JPanel panel = roomPanels[i];
-
-             // 방 제목 라벨
-             JLabel titleLabel = new JLabel("방 제목: " + room.getRoomTitle());
-             titleLabel.setBounds(10, 10, 100, 20);
-             panel.add(titleLabel);
-
-             // 방장 라벨
-             JLabel hostLabel = new JLabel("방장: " + room.getHostName());
-             hostLabel.setBounds(10, 30, 100, 20);
-             panel.add(hostLabel);
-
-             // 상태 라벨
-             JLabel statusLabel = new JLabel("상태: " + room.getStatus());
-             statusLabel.setBounds(10, 50, 100, 20);
-             panel.add(statusLabel);
-
-             // 방 패널 클릭 시 입장 기능
-             panel.addMouseListener(new java.awt.event.MouseAdapter() {
-                 @Override
-                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                     parentFrame.showWaitingRoomPanel(room.getRoomTitle(), false, "");
-                 }
-             });
-
-             panel.setVisible(true);
-         }
-
-         roomListPanel.revalidate();
-         roomListPanel.repaint();
-     });
- }
-
-
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -260,4 +204,6 @@ public class LobbyPanel extends JPanel {
             g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
         }
     }
+
+
 }

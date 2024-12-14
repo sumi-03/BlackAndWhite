@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="소켓 기본 구조 설계">
-      <change afterPath="$PROJECT_DIR$/src/Game/RoomInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Game/CreateRoomPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client/ClientStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ClientHandler/Clienthandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientHandler/Clienthandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/CreateRoomPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/CreateRoomPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/LobbyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LobbyPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Images/Lobby_img.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Images/Login_img.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Images/gamebg_sample.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Images/lobby.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Images/lobby_ntext.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Images/login_sample.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Images/main_sample.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/StartServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/StartServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/LoginPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LoginPanel.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,11 +27,6 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="main" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -82,7 +65,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "355",
-    "git-widget-placeholder": "tmp",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/gnltj/git/BlackAndWhite",

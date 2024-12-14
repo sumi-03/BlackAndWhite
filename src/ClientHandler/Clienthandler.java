@@ -1,118 +1,95 @@
 package ClientHandler;
 
-import Server.StartServer;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Clienthandler implements Runnable {
-    public static List<Clienthandler> clientHandlers = new ArrayList<>();
+
+    public static ArrayList<Clienthandler> clientHandlers = new ArrayList<>();
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private String clientUsername;
-    private StartServer server; // StartServer 참조
 
-    public Clienthandler(Socket socket, StartServer server) {
+    public Clienthandler(Socket socket) {
         try {
             this.socket = socket;
-            this.server = server;
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"));
-
+            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.clientUsername = bufferedReader.readLine();
             clientHandlers.add(this);
             broadcastMessage("SERVER: " + clientUsername + " 님이 입장했습니다!");
-            broadcastUserList(); // 유저리스트 브로드캐스트
+            broadcastUserList(); // 유저 목록 브로드캐스트 호출 추가
         } catch (IOException e) {
-            closeEverything();
+            closeEverything(socket, bufferedReader, bufferedWriter);
         }
     }
 
     @Override
     public void run() {
         String messageFromClient;
-
         while (socket.isConnected()) {
             try {
                 messageFromClient = bufferedReader.readLine();
-
                 if (messageFromClient != null) {
-                    System.out.println("Received: " + messageFromClient);
-
-                    if (messageFromClient.startsWith("CREATE_ROOM:")) {
-                        String roomTitle = messageFromClient.substring(12).trim();
-                        System.out.println(clientUsername + " is creating room: " + roomTitle);
-
-                        // StartServer의 createRoom 메서드 호출
-                        server.createRoom(roomTitle, clientUsername);
-
-                    } else if (messageFromClient.startsWith("JOIN_ROOM:")) {
-                        String roomTitle = messageFromClient.substring(10).trim();
-                        System.out.println(clientUsername + " is joining room: " + roomTitle);
-
-                        // StartServer의 playerJoinRoom 메서드 호출
-                        server.playerJoinRoom(roomTitle, clientUsername);
-
-                    } else if (messageFromClient.equals("REQUEST_USERLIST")) {
-                        System.out.println(clientUsername + " requested user list.");
-                        broadcastUserList(); // 유저리스트 브로드캐스트
-
-                    } else if (messageFromClient.equals("REQUEST_ROOMLIST")) {
-                        System.out.println(clientUsername + " requested room list.");
-                        server.broadcastRoomList(); // 방 목록 브로드캐스트
-
+                    if (messageFromClient.equals("EXIT")) {
+                        closeEverything(socket, bufferedReader, bufferedWriter);
+                        break; // 연결 종료 후 루프 종료
                     } else {
-                        broadcastMessage(messageFromClient);
+                        // 일반 메시지 처리
+                        String formattedMessage = clientUsername + ": " + messageFromClient;
+                        System.out.println(formattedMessage);
+                        broadcastMessage(formattedMessage);
                     }
                 }
             } catch (IOException e) {
-                closeEverything();
+                closeEverything(socket, bufferedReader, bufferedWriter);
                 break;
             }
         }
     }
 
-
-    public void broadcastMessage(String message) {
+    public void broadcastMessage(String messageToSend) {
         for (Clienthandler clientHandler : clientHandlers) {
             try {
-                clientHandler.bufferedWriter.write(message);
+                // if (!clientHandler.clientUsername.equals(clientUsername)) {
+                clientHandler.bufferedWriter.write(messageToSend);
                 clientHandler.bufferedWriter.newLine();
                 clientHandler.bufferedWriter.flush();
+                //   }
             } catch (IOException e) {
-                closeEverything();
+                closeEverything(socket, bufferedReader, bufferedWriter);
             }
         }
     }
 
-    public BufferedWriter getBufferedWriter() {
-        return bufferedWriter;
-    }
-
-    // 유저 리스트 브로드캐스트 메서드
+    // 유저 목록을 모든 클라이언트에게 전송
     public void broadcastUserList() {
-        StringBuilder userListMessage = new StringBuilder("USERLIST:");
+        StringBuilder userList = new StringBuilder("USERLIST:");
         for (Clienthandler clientHandler : clientHandlers) {
-            userListMessage.append(clientHandler.clientUsername).append(",");
+            userList.append(clientHandler.clientUsername).append(",");
         }
 
         for (Clienthandler clientHandler : clientHandlers) {
             try {
-                clientHandler.bufferedWriter.write(userListMessage.toString());
+                clientHandler.bufferedWriter.write(userList.toString());
                 clientHandler.bufferedWriter.newLine();
                 clientHandler.bufferedWriter.flush();
             } catch (IOException e) {
-                clientHandler.closeEverything();
+                closeEverything(socket, bufferedReader, bufferedWriter);
             }
         }
     }
 
-    public void closeEverything() {
+    public void removeClientHandler() {
         clientHandlers.remove(this);
         broadcastMessage("SERVER: " + clientUsername + " 님이 나갔습니다!");
-        broadcastUserList(); // 유저리스트 브로드캐스트
+        broadcastUserList();
+    }
+
+    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
+        removeClientHandler();
         try {
             if (bufferedReader != null) bufferedReader.close();
             if (bufferedWriter != null) bufferedWriter.close();
