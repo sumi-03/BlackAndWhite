@@ -110,9 +110,11 @@ public class ClientStart {
             bufferedWriter.write("EXIT"); // 서버에 종료 알림 메시지
             bufferedWriter.newLine();
             bufferedWriter.flush();
-
+            
+            bufferedReader.close();
+            bufferedWriter.close();
             socket.close();
-            System.out.println("Connection closed.");
+
         }
     }
     public BufferedReader getBufferedReader() {

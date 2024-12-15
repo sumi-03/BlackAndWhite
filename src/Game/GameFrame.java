@@ -1,9 +1,9 @@
 package Game;
 
 import Client.ClientStart;
-
-import javax.swing.*;
+import java.io.IOException;
 import java.util.List;
+import javax.swing.*;
 
 public class GameFrame extends JFrame {
     private LobbyPanel lobbyPanel;
@@ -16,6 +16,25 @@ public class GameFrame extends JFrame {
         setTitle("BnW");
         setSize(960, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                if (client != null) {
+                    client.sendMessage("EXIT");
+                    try {
+                        client.closeConnection();
+                    } catch (IOException e1) {
+                        
+                        e1.printStackTrace();
+                    }
+
+                }
+                System.exit(0); // 프로그램 종료
+            }
+        });
+
         setLocationRelativeTo(null);
         setResizable(false);
 
