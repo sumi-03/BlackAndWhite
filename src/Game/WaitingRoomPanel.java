@@ -1,10 +1,10 @@
 package Game;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class WaitingRoomPanel extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -65,6 +65,7 @@ public class WaitingRoomPanel extends JPanel {
         backButton.setForeground(Color.WHITE);
         backButton.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
         backButton.addActionListener(e -> {
+            parentFrame.sendMessage("DELETE_ROOM:" + roomTitle); // 방 제거 요청
             parentFrame.showLobbyPanel(parentFrame.getPlayerName());
             parentFrame.requestUserList();
         });
@@ -74,6 +75,7 @@ public class WaitingRoomPanel extends JPanel {
     // 상대방 이름 업데이트 메서드
     public void updateOpponentName(String opponentName) {
         opponentNameLabel.setText("BLUE 플레이어: " + opponentName);
+        revalidate();
         repaint();
     }
 

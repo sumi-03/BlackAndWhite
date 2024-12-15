@@ -66,7 +66,6 @@ public class LobbyPanel extends JPanel {
             parentFrame.getLayeredPane().repaint();
         });
         rightPanel.add(cRoomButton);
-        rightPanel.add(cRoomButton);
 
         // EXIT 버튼
         JButton backButton = new JButton("");
@@ -177,7 +176,7 @@ public class LobbyPanel extends JPanel {
             roomListPanel.add(roomPanels[i]);
         }
 
-// 위치 수동 설정
+        // 위치 수동 설정
         roomPanels[0].setBounds(11, 8, 123, 71);
         roomPanels[1].setBounds(172, 8, 123, 71);
         roomPanels[2].setBounds(11, 114, 123, 71);
@@ -230,54 +229,56 @@ public class LobbyPanel extends JPanel {
         });
     }
     // 방 목록을 업데이트하는 메서드
- public void updateRoomList(List<RoomInfo> rooms) {
-     SwingUtilities.invokeLater(() -> {
-         if (roomPanels == null) {
-             System.out.println("Error: roomPanels is not initialized.");
-             return;
-         }
+    public void updateRoomList(List<RoomInfo> rooms) {
+        SwingUtilities.invokeLater(() -> {
+            if (roomPanels == null) {
+                System.out.println("Error: roomPanels is not initialized.");
+                return;
+            }
 
-         // 모든 방 패널 초기화
-         for (JPanel panel : roomPanels) {
-             panel.removeAll();
-             panel.setVisible(false);
-         }
+            // 모든 방 패널 초기화
+            for (JPanel panel : roomPanels) {
+                panel.removeAll();
+                panel.setVisible(false);
+            }
 
-         // 최대 6개의 방을 순서대로 표시
-         for (int i = 0; i < Math.min(rooms.size(), roomPanels.length); i++) {
-             RoomInfo room = rooms.get(i);
-             JPanel panel = roomPanels[i];
+            // 최대 6개의 방을 순서대로 표시
+            for (int i = 0; i < Math.min(rooms.size(), roomPanels.length); i++) {
+                RoomInfo room = rooms.get(i);
+                JPanel panel = roomPanels[i];
 
-             // 방 제목 라벨
-             JLabel titleLabel = new JLabel("방 제목: " + room.getRoomTitle());
-             titleLabel.setBounds(10, 10, 100, 20);
-             panel.add(titleLabel);
+                // 방 제목 라벨
+                JLabel titleLabel = new JLabel("방 제목: " + room.getRoomTitle());
+                titleLabel.setBounds(10, 10, 100, 20);
+                panel.add(titleLabel);
 
-             // 방장 라벨
-             JLabel hostLabel = new JLabel("방장: " + room.getHostName());
-             hostLabel.setBounds(10, 30, 100, 20);
-             panel.add(hostLabel);
+                // 방장 라벨
+                JLabel hostLabel = new JLabel("방장: " + room.getHostName());
+                hostLabel.setBounds(10, 30, 100, 20);
+                panel.add(hostLabel);
 
-             // 상태 라벨
-             JLabel statusLabel = new JLabel("상태: " + room.getStatus());
-             statusLabel.setBounds(10, 50, 100, 20);
-             panel.add(statusLabel);
+                // 상태 라벨
+                JLabel statusLabel = new JLabel("상태: " + room.getStatus());
+                statusLabel.setBounds(10, 50, 100, 20);
+                panel.add(statusLabel);
 
-             // 방 패널 클릭 시 입장 기능
-             panel.addMouseListener(new java.awt.event.MouseAdapter() {
-                 @Override
-                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                     parentFrame.showWaitingRoomPanel(room.getRoomTitle(), false, "");
-                 }
-             });
+                // 방 패널 클릭 시 입장 기능
+                panel.addMouseListener(new java.awt.event.MouseAdapter() {
+                    @Override
+                    public void mouseClicked(java.awt.event.MouseEvent e) {
 
-             panel.setVisible(true);
-         }
+                        parentFrame.updateOpponentName(parentFrame.getClient().getUserName());
+                        parentFrame.showWaitingRoomPanel(room.getRoomTitle(), false, "");
+                    }
+                });
 
-         roomListPanel.revalidate();
-         roomListPanel.repaint();
-     });
- }
+                panel.setVisible(true);
+            }
+
+            roomListPanel.revalidate();
+            roomListPanel.repaint();
+        });
+    }
 
 
 

@@ -11,12 +11,12 @@ public class ClientStart {
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
-    private String username;
+    private String userName;
     private GameFrame gameFrame;
 
     public ClientStart(String serverAddress, int port, String username, GameFrame gameFrame) throws IOException {
         this.gameFrame = gameFrame;
-        this.username = username;
+        this.userName = username;
         socket = new Socket(serverAddress, port);
         bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
         bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"));
@@ -74,7 +74,8 @@ public class ClientStart {
                             String roomTitle = parts[0];
                             String opponentName = parts[1];
                             gameFrame.updateOpponentName(opponentName); // 상대방 이름 업데이트
-                        }else {
+
+                        } else {
                             // 일반 메시지는 로비의 채팅창에 전달
                             gameFrame.appendMessageToLobby(msgFromServer);
                         }
@@ -112,5 +113,9 @@ public class ClientStart {
             socket.close();
             System.out.println("Connection closed.");
         }
+    }
+
+    public String getUserName() {
+        return userName;
     }
 }

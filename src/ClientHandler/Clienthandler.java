@@ -42,7 +42,6 @@ public class Clienthandler implements Runnable {
                     System.out.println("Received: " + messageFromClient);
                     if (messageFromClient.equals("EXIT")) {
                         closeEverything(socket, bufferedReader, bufferedWriter);
-                        break; // 연결 종료 후 루프 종료
                     }
                     else if (messageFromClient.startsWith("CREATE_ROOM:")) {
                         String roomTitle = messageFromClient.substring(12).trim();
@@ -51,7 +50,15 @@ public class Clienthandler implements Runnable {
                         // StartServer의 createRoom 메서드 호출
                         server.createRoom(roomTitle, clientUsername);
 
-                    } else if (messageFromClient.startsWith("JOIN_ROOM:")) {
+                    } 
+                    else if (messageFromClient.startsWith("DELETE_ROOM:")) {
+                        String roomTitle = messageFromClient.substring(12).trim();
+                        System.out.println(clientUsername + " is deleting the room: " + roomTitle);
+
+                         // StartServer의 deleteRoom 메서드 호출
+                        server.deleteRoom(roomTitle, clientUsername);
+                    
+                    }else if (messageFromClient.startsWith("JOIN_ROOM:")) {
                         String roomTitle = messageFromClient.substring(10).trim();
                         System.out.println(clientUsername + " is joining room: " + roomTitle);
 
@@ -66,7 +73,8 @@ public class Clienthandler implements Runnable {
                         System.out.println(clientUsername + " requested room list.");
                         server.broadcastRoomList(); // 방 목록 브로드캐스트
 
-                    } else {    // 일반 메시지 처리
+                    } 
+                    else {    // 일반 메시지 처리
                         String formattedMessage = clientUsername + ": " + messageFromClient;
                         System.out.println(formattedMessage);
                         broadcastMessage(formattedMessage);
@@ -123,11 +131,19 @@ public class Clienthandler implements Runnable {
     public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
         removeClientHandler();
         try {
-            if (bufferedReader != null) bufferedReader.close();
-            if (bufferedWriter != null) bufferedWriter.close();
-            if (socket != null) socket.close();
+            if (bufferedReader != null)
+                bufferedReader.close();
+            if (bufferedWriter != null)
+                bufferedWriter.close();
+            if (socket != null)
+                socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    // 요청받는 클라이언트 이름 리턴
+    public String getClientUsername() {
+        return clientUsername;
     }
 }

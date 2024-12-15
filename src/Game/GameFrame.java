@@ -134,8 +134,8 @@ public class GameFrame extends JFrame {
 
     // 대기방 상대방 이름
     public void updateOpponentName(String opponentName) {
-        if (getContentPane() instanceof WaitingRoomPanel) {
-            ((WaitingRoomPanel) getContentPane()).updateOpponentName(opponentName);
+        if (getContentPane() instanceof WaitingRoomPanel waitingRoomPanel) {
+            waitingRoomPanel.updateOpponentName(opponentName);
         }
     }
 

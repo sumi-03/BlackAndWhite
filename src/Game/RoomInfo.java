@@ -19,6 +19,12 @@ public class RoomInfo {
     public String getStatus() { return status; }
 
 
-    public void setOpponentName(String opponentName) { this.opponentName = opponentName; }
+    public void setOpponentName(String opponentName) {
+        this.opponentName = opponentName;
+    }
+
+    public void setHostName(String hostName) {
+        this.hostName = hostName;
+    }
     public void setStatus(String status) { this.status = status; }
 }

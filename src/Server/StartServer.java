@@ -1,15 +1,14 @@
 package Server;
 
 import ClientHandler.Clienthandler;
+import static ClientHandler.Clienthandler.clientHandlers;
 import Game.RoomInfo;
-
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import static ClientHandler.Clienthandler.clientHandlers;
 
 public class StartServer {
 
@@ -39,6 +38,24 @@ public class StartServer {
     public void createRoom(String roomTitle, String hostName) {
         roomList.add(new RoomInfo(roomTitle, hostName, "대기중..."));
         System.out.println("Room created: " + roomTitle + ", Host: " + hostName);
+        broadcastRoomList(); // 방 생성 후 방 목록 브로드캐스트
+    }
+
+    public void deleteRoom(String roomTitle, String hostName) {
+
+        // roomlist에서 방 제목과 host가 일치하는 방을 찾아 삭제
+
+        for (RoomInfo room : roomList) {
+
+            if (room.getRoomTitle().equals(roomTitle) && room.getHostName().equals(hostName)) {
+
+                roomList.remove(room);
+            }
+
+            break;
+        }
+
+        System.out.println("Room deleted: " + roomTitle + ", Host: " + hostName);
         broadcastRoomList(); // 방 생성 후 방 목록 브로드캐스트
     }
 
