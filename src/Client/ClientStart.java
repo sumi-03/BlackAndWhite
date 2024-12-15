@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.*;
 
 public class ClientStart {
     private Socket socket;
@@ -45,10 +46,9 @@ public class ClientStart {
     // 서버로부터 메시지를 수신하는 메서드
     public void listenForMessages() {
         new Thread(() -> {
-            String msgFromServer;
             while (socket.isConnected()) {
                 try {
-                    msgFromServer = bufferedReader.readLine();
+                    String msgFromServer = bufferedReader.readLine();
                     System.out.println("Received from Server: " + msgFromServer);
 
                     if (msgFromServer != null) {
@@ -73,8 +73,9 @@ public class ClientStart {
                             String[] parts = msgFromServer.substring(16).split(",");
                             String roomTitle = parts[0];
                             String opponentName = parts[1];
-                            gameFrame.updateOpponentName(opponentName); // 상대방 이름 업데이트
-
+                            SwingUtilities.invokeLater(() -> {
+                                gameFrame.updateBluePlayer(opponentName);
+                            });
                         } else {
                             // 일반 메시지는 로비의 채팅창에 전달
                             gameFrame.appendMessageToLobby(msgFromServer);
@@ -113,6 +114,9 @@ public class ClientStart {
             socket.close();
             System.out.println("Connection closed.");
         }
+    }
+    public BufferedReader getBufferedReader() {
+        return bufferedReader;
     }
 
     public String getUserName() {

@@ -14,11 +14,22 @@ public class WaitingRoomPanel extends JPanel {
     private JLabel privacyLabel;
     private Image backgroundImage;
     private GameFrame parentFrame;
+    private String host = "";
+    private String opponent= "";
 
-    public WaitingRoomPanel(GameFrame parentFrame, String hostName, String roomTitle, boolean isPrivate, String password) {
+    public WaitingRoomPanel(RoomInfo room, GameFrame parentFrame, boolean isHost, String hostName, String roomTitle, boolean isPrivate, String password) {
         this.parentFrame = parentFrame;
         setLayout(null);
         setPreferredSize(new Dimension(960, 600));
+
+        if (isHost) {
+            host = hostName;
+            opponent = (room.getOpponentName()==null) ? "???" : room.getOpponentName();
+        } else {
+
+            host = room.getHostName();
+            opponent = hostName;
+        }
 
         // 배경 이미지 로드
         try {
@@ -43,14 +54,14 @@ public class WaitingRoomPanel extends JPanel {
         add(privacyLabel);
 
         // 방장 이름 라벨 (왼쪽 하단)
-        hostNameLabel = new JLabel("RED 플레이어: " + hostName, SwingConstants.LEFT);
+        hostNameLabel = new JLabel("RED 플레이어: " + host, SwingConstants.LEFT);
         hostNameLabel.setForeground(Color.WHITE);
         hostNameLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 18));
         hostNameLabel.setBounds(30, 520, 300, 30);
         add(hostNameLabel);
 
         // 상대방 이름 라벨 (오른쪽 하단) - 초기에는 ???로 설정
-        opponentNameLabel = new JLabel("BLUE 플레이어: ???", SwingConstants.RIGHT);
+        opponentNameLabel = new JLabel("BLUE 플레이어: " + opponent, SwingConstants.RIGHT);
         opponentNameLabel.setForeground(Color.WHITE);
         opponentNameLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 18));
         opponentNameLabel.setBounds(630, 520, 300, 30);
@@ -73,7 +84,7 @@ public class WaitingRoomPanel extends JPanel {
     }
 
     // 상대방 이름 업데이트 메서드
-    public void updateOpponentName(String opponentName) {
+    public void updateBluePlayer(String opponentName) {
         opponentNameLabel.setText("BLUE 플레이어: " + opponentName);
         revalidate();
         repaint();

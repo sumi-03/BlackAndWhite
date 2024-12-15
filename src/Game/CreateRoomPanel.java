@@ -2,6 +2,7 @@ package Game;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class CreateRoomPanel extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -51,16 +52,47 @@ public class CreateRoomPanel extends JPanel {
         createButton.setBounds(155, 300, 100, 40);
         createButton.addActionListener(e -> {
             String roomTitle = roomTitleField.getText().trim();
+
             if (!roomTitle.isEmpty()) {
-                parentFrame.sendMessage("CREATE_ROOM:" + roomTitle); // 방 생성 요청
-                parentFrame.showWaitingRoomPanel(roomTitle, privateRoomCheckBox.isSelected(), new String(passwordField.getPassword()));
-                parentFrame.getLayeredPane().remove(this);
-                parentFrame.getLayeredPane().revalidate();
-                parentFrame.getLayeredPane().repaint();
+                // 방 생성 요청 전송
+                parentFrame.getClient().sendMessage("CREATE_ROOM:" + roomTitle);
+
+                // 서버 응답 대기 및 처리
+                new Thread(() -> {
+                    try {
+                        String msgFromServer;
+                        while (true) {
+                            msgFromServer = parentFrame.getClient().getBufferedReader().readLine();
+                            if (msgFromServer != null && msgFromServer.startsWith("CREATE_ROOM_COMPLETED:")) {
+                                String receivedRoomTitle = msgFromServer.substring(22).trim();
+
+                                if (receivedRoomTitle.equals(roomTitle)) {
+                                    SwingUtilities.invokeLater(() -> {
+                                        RoomInfo roomInfo = new RoomInfo(roomTitle, parentFrame.getPlayerName(), "대기중...");
+                                        parentFrame.showWaitingRoomPanel(
+                                                roomInfo,
+                                                privateRoomCheckBox.isSelected(),
+                                                true,
+                                                new String(passwordField.getPassword())
+                                        );
+                                        parentFrame.getLayeredPane().remove(this);
+                                        parentFrame.getLayeredPane().revalidate();
+                                        parentFrame.getLayeredPane().repaint();
+                                    });
+                                    break; // 메시지 처리가 완료되면 루프 종료
+                                }
+                            }
+                        }
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                }).start();
             } else {
                 JOptionPane.showMessageDialog(this, "방 제목을 입력해주세요.", "경고", JOptionPane.WARNING_MESSAGE);
             }
         });
+
+
 
         add(createButton);
 

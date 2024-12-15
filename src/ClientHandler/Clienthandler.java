@@ -41,6 +41,7 @@ public class Clienthandler implements Runnable {
                 if (messageFromClient != null) {
                     System.out.println("Received: " + messageFromClient);
                     if (messageFromClient.equals("EXIT")) {
+                        removeClientHandler();
                         closeEverything(socket, bufferedReader, bufferedWriter);
                     }
                     else if (messageFromClient.startsWith("CREATE_ROOM:")) {
@@ -129,7 +130,7 @@ public class Clienthandler implements Runnable {
     }
 
     public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter) {
-        removeClientHandler();
+
         try {
             if (bufferedReader != null)
                 bufferedReader.close();

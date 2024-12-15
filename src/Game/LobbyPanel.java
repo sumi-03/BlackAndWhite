@@ -1,10 +1,10 @@
 package Game;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.List;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 public class LobbyPanel extends JPanel {
     private Image backgroundImage;
@@ -267,8 +267,10 @@ public class LobbyPanel extends JPanel {
                     @Override
                     public void mouseClicked(java.awt.event.MouseEvent e) {
 
-                        parentFrame.updateOpponentName(parentFrame.getClient().getUserName());
-                        parentFrame.showWaitingRoomPanel(room.getRoomTitle(), false, "");
+                        room.setOpponentName(parentFrame.getClient().getUserName());
+                        parentFrame.sendMessage("JOIN_ROOM:" + room.getRoomTitle()); // 방 제거 요청
+                        parentFrame.showWaitingRoomPanel(room, false, false, "");
+
                     }
                 });
 

@@ -1,8 +1,9 @@
 package Game;
 
 import Client.ClientStart;
-import java.util.List;
+
 import javax.swing.*;
+import java.util.List;
 
 public class GameFrame extends JFrame {
     private LobbyPanel lobbyPanel;
@@ -125,19 +126,21 @@ public class GameFrame extends JFrame {
 
 
     // WaitingRoomPanel로 전환
-    public void showWaitingRoomPanel(String roomTitle, boolean isPrivate, String password) {
-        WaitingRoomPanel waitingRoomPanel = new WaitingRoomPanel(this, playerName, roomTitle, isPrivate, password);
+    public void showWaitingRoomPanel(RoomInfo room, boolean isPrivate, boolean isHost, String password) {
+        
+        WaitingRoomPanel waitingRoomPanel = new WaitingRoomPanel( room, this,isHost, playerName, room.getRoomTitle(), isPrivate, password);
         setContentPane(waitingRoomPanel);
         revalidate();
         repaint();
     }
 
     // 대기방 상대방 이름
-    public void updateOpponentName(String opponentName) {
+    public void updateBluePlayer(String opponentName) {
         if (getContentPane() instanceof WaitingRoomPanel waitingRoomPanel) {
-            waitingRoomPanel.updateOpponentName(opponentName);
+            waitingRoomPanel.updateBluePlayer(opponentName);
         }
     }
+
 
     // 메시지 전송 
     // public void sendMessage(String message) {}
