@@ -30,9 +30,9 @@ public class GamePanel extends JPanel {
 
         // 호스트 여부에 따라 다른 배경 설정
         if (isHost) {
-            backgroundImage = ImageIO.read(new File("src/images/gameScreen.png"));
+            backgroundImage = ImageIO.read(new File("src/images/gameScreenRED.png"));
         } else {
-            backgroundImage = ImageIO.read(new File("src/images/lobby.png"));
+            backgroundImage = ImageIO.read(new File("src/images/gameScreenBLUE.png"));
         }
 
         initializeCards();
