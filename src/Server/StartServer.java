@@ -104,6 +104,14 @@ public class StartServer {
                     sendCountdownSignal(room.getHostName());
                     // 상대방에게는 START_GAME 신호 전송
                     sendCountdownSignal(playerName);
+
+                    for (Clienthandler client : clientHandlers) {
+
+                        if (client.getClientUsername().equals(room.getHostName())) {
+
+                            client.sendMessage("OPPONENT_JOINED:" + room.getRoomTitle() + "," + playerName);
+                        }
+                    }
                 }
             }
         }

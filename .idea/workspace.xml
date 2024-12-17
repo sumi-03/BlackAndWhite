@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="카드를 객체로 설정함">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Client/ClientStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/LobbyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LobbyPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/StartServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/StartServer.java" afterDir="false" />
     </list>
@@ -69,41 +68,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.App.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "355",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "go.import.settings.migrated": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/gnltj/git/BlackAndWhite",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "project.propGUI",
-    "vue.rearranger.settings.migration": "true",
-    "애플리케이션.App.executor": "Run",
-    "애플리케이션.Client1.executor": "Run",
-    "애플리케이션.Client2.executor": "Run",
-    "애플리케이션.Client3.executor": "Run",
-    "애플리케이션.Client4.executor": "Run",
-    "애플리케이션.LoginPanel.executor": "Run",
-    "애플리케이션.Server.executor": "Run",
-    "애플리케이션.StartServer.executor": "Run",
-    "애플리케이션.loginpanel.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.App.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH&quot;: &quot;355&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/gnltj/git/BlackAndWhite&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propGUI&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
+    &quot;애플리케이션.App.executor&quot;: &quot;Run&quot;,
+    &quot;애플리케이션.Client1.executor&quot;: &quot;Run&quot;,
+    &quot;애플리케이션.Client2.executor&quot;: &quot;Run&quot;,
+    &quot;애플리케이션.Client3.executor&quot;: &quot;Run&quot;,
+    &quot;애플리케이션.Client4.executor&quot;: &quot;Run&quot;,
+    &quot;애플리케이션.LoginPanel.executor&quot;: &quot;Run&quot;,
+    &quot;애플리케이션.Server.executor&quot;: &quot;Run&quot;,
+    &quot;애플리케이션.StartServer.executor&quot;: &quot;Run&quot;,
+    &quot;애플리케이션.loginpanel.executor&quot;: &quot;Run&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\gnltj\git\BlackAndWhite\src\Images" />
@@ -113,7 +112,7 @@
       <recent name="$PROJECT_DIR$/src/Images" />
     </key>
   </component>
-  <component name="RunManager" selected="애플리케이션.Client2">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Client1" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Game.App" />
       <module name="BlackAndWhite" />
@@ -150,11 +149,11 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="애플리케이션.Client1" />
-      <item itemvalue="애플리케이션.Client2" />
-      <item itemvalue="애플리케이션.Server" />
-      <item itemvalue="애플리케이션.Client3" />
-      <item itemvalue="애플리케이션.Client4" />
+      <item itemvalue="Application.Client1" />
+      <item itemvalue="Application.Client2" />
+      <item itemvalue="Application.Client3" />
+      <item itemvalue="Application.Client4" />
+      <item itemvalue="Application.Server" />
     </list>
   </component>
   <component name="SharedIndexes">
@@ -191,6 +190,7 @@
       <workItem from="1733228476301" duration="1421000" />
       <workItem from="1733229910056" duration="9253000" />
       <workItem from="1734280500748" duration="7268000" />
+      <workItem from="1734441892602" duration="1227000" />
     </task>
     <task id="LOCAL-00001" summary="16:10으로 gameframe 해상도 변경">
       <option name="closed" value="true" />

@@ -268,7 +268,7 @@ public class LobbyPanel extends JPanel {
                     public void mouseClicked(java.awt.event.MouseEvent e) {
 
                         room.setOpponentName(parentFrame.getClient().getUserName());
-                        parentFrame.sendMessage("JOIN_ROOM:" + room.getRoomTitle()); // 방 제거 요청
+                        parentFrame.sendMessage("JOIN_ROOM:" + room.getRoomTitle());
                         parentFrame.showWaitingRoomPanel(room, false, false, "");
 
                     }

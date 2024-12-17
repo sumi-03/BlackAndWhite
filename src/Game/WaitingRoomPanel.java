@@ -1,12 +1,12 @@
 package Game;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class WaitingRoomPanel extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -21,7 +21,8 @@ public class WaitingRoomPanel extends JPanel {
     private boolean countdownStarted = false;
     private boolean isHost;
 
-    public WaitingRoomPanel(RoomInfo room, GameFrame parentFrame, boolean isHost, String hostName, String roomTitle, boolean isPrivate, String password) {
+    public WaitingRoomPanel(RoomInfo room, GameFrame parentFrame, boolean isHost, String hostName, String roomTitle,
+            boolean isPrivate, String password) {
         this.isHost = isHost;
         this.parentFrame = parentFrame;
         setLayout(null);
@@ -29,7 +30,7 @@ public class WaitingRoomPanel extends JPanel {
 
         if (isHost) {
             host = hostName;
-            opponent = (room.getOpponentName()==null) ? "???" : room.getOpponentName();
+            opponent = (room.getOpponentName() == null) ? "???" : room.getOpponentName();
         } else {
 
             host = room.getHostName();
@@ -88,15 +89,18 @@ public class WaitingRoomPanel extends JPanel {
         add(backButton);
     }
 
+
     // 상대방 이름 업데이트 메서드
     public void updateBluePlayer(String opponentName) {
+
         this.opponent = opponentName;
-        opponentNameLabel.setText("BLUE 플레이어: " + opponentName);
-        revalidate();
-        repaint();
+        opponentNameLabel.setText("BLUE 플레이어: " + opponent);
+
+        this.revalidate();
+        this.repaint();
 
         System.out.println("Host: " + host);
-        System.out.println("Opponent: " + opponentName);
+        System.out.println("Opponent: " + opponent);
 
         if (!countdownStarted) {
             countdownStarted = true;
@@ -106,6 +110,7 @@ public class WaitingRoomPanel extends JPanel {
 
     // 두 플레이어 입장 후 카운트 다운 -> 게임패널로 넘어감
     public void startCountdownToGame() {
+        
         if (!countdownStarted) {
             countdownStarted = true;
             Timer timer = new Timer();
