@@ -75,12 +75,21 @@ public class ClientStart {
                             String opponentName = parts[1];
                             SwingUtilities.invokeLater(() -> gameFrame.updateBluePlayer(opponentName));
 
-                        } else if (msgFromServer.equals("START_COUNTDOWN")) {
+                        } else if (msgFromServer.startsWith("START_GAME:")) {
+                            boolean isHost = msgFromServer.substring(11).equals("HOST");
                             SwingUtilities.invokeLater(() -> {
-                                if (gameFrame.getContentPane() instanceof WaitingRoomPanel) {
-                                    ((WaitingRoomPanel) gameFrame.getContentPane()).startCountdownToGame();
+                                gameFrame.showGamePanel(isHost);
+                            });
+                        }
+                        else if (msgFromServer.equals("START_COUNTDOWN")) {
+                            SwingUtilities.invokeLater(() -> {
+                                if (gameFrame.getContentPane() instanceof WaitingRoomPanel waitingRoomPanel) {
+                                    waitingRoomPanel.startCountdownToGame(); // 호스트만 실행
                                 }
                             });
+                        } else if (msgFromServer.equals("START_GAME")) {
+                            SwingUtilities.invokeLater(() -> gameFrame.showGamePanel(false)); // 상대방은 isHost=false
+
 
                         } else if (msgFromServer.startsWith("OPPONENT_CARD_SUBMITTED:")) {
                             try {

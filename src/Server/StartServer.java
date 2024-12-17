@@ -100,16 +100,17 @@ public class StartServer {
                     room.setStatus("게임중");
                     broadcastRoomList();
 
-                    // 두 플레이어 모두에게 게임 시작 신호를 보냄
-                    sendStartGameSignal(room.getHostName());
-                    sendStartGameSignal(playerName);
+                    // 호스트에게 START_COUNTDOWN 신호 전송
+                    sendCountdownSignal(room.getHostName());
+                    // 상대방에게는 START_GAME 신호 전송
+                    sendCountdownSignal(playerName);
                 }
             }
         }
     }
 
-    private void sendStartGameSignal(String playerName) {
-        for (Clienthandler client : Clienthandler.clientHandlers) {
+    private void sendCountdownSignal(String playerName) {
+        for (Clienthandler client : clientHandlers) {
             if (client.getClientUsername().equals(playerName)) {
                 try {
                     client.getBufferedWriter().write("START_COUNTDOWN");

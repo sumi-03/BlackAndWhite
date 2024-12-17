@@ -13,6 +13,7 @@ import java.util.List;
 
 public class GamePanel extends JPanel {
     private final MusicPlayer musicPlayer;
+
     private List<Card> playerCards;       // 내 카드 리스트
     private List<Card> opponentCards;     // 상대 카드 리스트
     private int playerWins;
@@ -22,15 +23,21 @@ public class GamePanel extends JPanel {
     private String playerName;            // 플레이어 이름
     private GameFrame parentFrame;        // 부모 프레임
 
-    public GamePanel(GameFrame parentFrame, String playerName, MusicPlayer musicPlayer) {
+    public GamePanel(GameFrame parentFrame, String playerName, MusicPlayer musicPlayer, boolean isHost) throws IOException {
         this.parentFrame = parentFrame;
         this.playerName = playerName;
         this.musicPlayer = musicPlayer;
-        setLayout(null);
-        setPreferredSize(new Dimension(960, 600));
+
+        // 호스트 여부에 따라 다른 배경 설정
+        if (isHost) {
+            backgroundImage = ImageIO.read(new File("src/images/gameScreen.png"));
+        } else {
+            backgroundImage = ImageIO.read(new File("src/images/lobby.png"));
+        }
 
         initializeCards();
-        loadBackgroundImage();
+        setLayout(null);
+        setPreferredSize(new Dimension(960, 600));
 
         roundCount = 0;
         playerWins = 0;
@@ -59,14 +66,6 @@ public class GamePanel extends JPanel {
         Collections.shuffle(opponentCards);
     }
 
-    // 배경 이미지
-    private void loadBackgroundImage() {
-        try {
-            backgroundImage = ImageIO.read(new File("src/images/gameScreen.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     // 카드 제출 및 서버로 전송
     private void submitCard(int cardIndex) {

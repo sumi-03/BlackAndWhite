@@ -4,8 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="자신의 화면에서 상대방이 카드를 제출하면 상대방의 카드 더미에서 제출한 카드가 삭제되는 기능 구현 등 게임 기본 룰 설정. 9라운드 5선승제">
+    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="카드를 객체로 설정함">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/ClientStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/StartServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/StartServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,7 +296,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734419406698</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="카드를 객체로 설정함">
+      <option name="closed" value="true" />
+      <created>1734419504013</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1734419504013</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,7 +347,8 @@
     <MESSAGE value="소켓 기본 구조 설계" />
     <MESSAGE value="카드 객체설정을 위한 이미지 추가" />
     <MESSAGE value="자신의 화면에서 상대방이 카드를 제출하면 상대방의 카드 더미에서 제출한 카드가 삭제되는 기능 구현 등 게임 기본 룰 설정. 9라운드 5선승제" />
-    <option name="LAST_COMMIT_MESSAGE" value="자신의 화면에서 상대방이 카드를 제출하면 상대방의 카드 더미에서 제출한 카드가 삭제되는 기능 구현 등 게임 기본 룰 설정. 9라운드 5선승제" />
+    <MESSAGE value="카드를 객체로 설정함" />
+    <option name="LAST_COMMIT_MESSAGE" value="카드를 객체로 설정함" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>

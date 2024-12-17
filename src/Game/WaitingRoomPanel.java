@@ -19,8 +19,10 @@ public class WaitingRoomPanel extends JPanel {
     private String host = "";
     private String opponent= "";
     private boolean countdownStarted = false;
+    private boolean isHost;
 
     public WaitingRoomPanel(RoomInfo room, GameFrame parentFrame, boolean isHost, String hostName, String roomTitle, boolean isPrivate, String password) {
+        this.isHost = isHost;
         this.parentFrame = parentFrame;
         setLayout(null);
         setPreferredSize(new Dimension(960, 600));
@@ -98,7 +100,7 @@ public class WaitingRoomPanel extends JPanel {
 
         if (!countdownStarted) {
             countdownStarted = true;
-            startCountdownToGame();
+            startCountdownToGame(); // 호스트 여부를 전달
         }
     }
 
@@ -112,18 +114,24 @@ public class WaitingRoomPanel extends JPanel {
 
                 @Override
                 public void run() {
-                    if (countdown > 0) {
-                        System.out.println("게임 시작까지: " + countdown + "초");
-                        countdown--;
-                    } else {
+                    try {
+                        if (countdown > 0) {
+                            System.out.println("게임 시작까지: " + countdown + "초");
+                            countdown--;
+                        } else {
+                            timer.cancel();
+                            SwingUtilities.invokeLater(() -> parentFrame.showGamePanel(isHost)); // 호스트 여부 전달
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                         timer.cancel();
-                        SwingUtilities.invokeLater(() -> parentFrame.showGamePanel());
                     }
                 }
             };
             timer.scheduleAtFixedRate(task, 0, 1000);
         }
     }
+
 
 
     @Override

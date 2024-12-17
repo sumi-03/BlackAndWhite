@@ -162,10 +162,16 @@ public class GameFrame extends JFrame {
     }
 
     //게임 패널 전환
-    public void showGamePanel() {
-        setContentPane(new GamePanel(this, playerName, musicPlayer));
-        revalidate();
-        repaint();
+    public void showGamePanel(boolean isHost) {
+        try {
+            GamePanel gamePanel = new GamePanel(this, playerName, musicPlayer, isHost);
+            setContentPane(gamePanel);
+            revalidate();
+            repaint();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "게임 화면 전환 중 오류가 발생했습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     // GameFrame 클래스에 라운드 결과를 업데이트하는 메서드
