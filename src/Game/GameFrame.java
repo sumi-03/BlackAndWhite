@@ -1,9 +1,10 @@
 package Game;
 
 import Client.ClientStart;
+
+import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
-import javax.swing.*;
 
 public class GameFrame extends JFrame {
     private LobbyPanel lobbyPanel;
@@ -160,13 +161,20 @@ public class GameFrame extends JFrame {
         }
     }
 
+    //게임 패널 전환
+    public void showGamePanel() {
+        setContentPane(new GamePanel(this, playerName, musicPlayer));
+        revalidate();
+        repaint();
+    }
 
-    // 메시지 전송 
-    // public void sendMessage(String message) {}
-    
-    // 서버로부터 받은 메시지를 Lobby 채팅창에 전달
-    // public void appendMessage(String message) {}
-    
+    // GameFrame 클래스에 라운드 결과를 업데이트하는 메서드
+    public void updateRoundResult(String result) {
+        if (getContentPane() instanceof GamePanel) {
+            GamePanel gamePanel = (GamePanel) getContentPane();
+            gamePanel.handleRoundResult(result);
+        }
+    }
     
 }
 

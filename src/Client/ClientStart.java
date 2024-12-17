@@ -1,12 +1,12 @@
 package Client;
 
-import Game.GameFrame;
-import Game.RoomInfo;
+import Game.*;
+
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
 
 public class ClientStart {
     private Socket socket;
@@ -54,7 +54,7 @@ public class ClientStart {
                     if (msgFromServer != null) {
                         if (msgFromServer.startsWith("USERLIST:")) {
                             String[] users = msgFromServer.substring(9).split(",");
-                            gameFrame.updateUserList(users); // 유저리스트 업데이트
+                            gameFrame.updateUserList(users);
 
                         } else if (msgFromServer.startsWith("ROOMLIST:")) {
                             String[] roomData = msgFromServer.substring(9).split(";");
@@ -67,17 +67,44 @@ public class ClientStart {
                                 }
                             }
 
-                            gameFrame.updateRoomList(rooms); // 방 리스트 업데이트
+                            gameFrame.updateRoomList(rooms);
 
                         } else if (msgFromServer.startsWith("OPPONENT_JOINED:")) {
                             String[] parts = msgFromServer.substring(16).split(",");
                             String roomTitle = parts[0];
                             String opponentName = parts[1];
+                            SwingUtilities.invokeLater(() -> gameFrame.updateBluePlayer(opponentName));
+
+                        } else if (msgFromServer.equals("START_COUNTDOWN")) {
                             SwingUtilities.invokeLater(() -> {
-                                gameFrame.updateBluePlayer(opponentName);
+                                if (gameFrame.getContentPane() instanceof WaitingRoomPanel) {
+                                    ((WaitingRoomPanel) gameFrame.getContentPane()).startCountdownToGame();
+                                }
                             });
+
+                        } else if (msgFromServer.startsWith("OPPONENT_CARD_SUBMITTED:")) {
+                            try {
+                                // 콜론(:) 이후의 값을 추출
+                                String cardNumberStr = msgFromServer.split(":")[1].trim();
+                                System.out.println("Received card number string: \"" + cardNumberStr + "\"");
+
+                                int cardNumber = Integer.parseInt(cardNumberStr);
+                                System.out.println("Parsed card number: " + cardNumber);
+
+                                SwingUtilities.invokeLater(() -> {
+                                    if (gameFrame.getContentPane() instanceof GamePanel gamePanel) {
+                                        gamePanel.updateOpponentCard(cardNumber);
+                                    }
+                                });
+                            } catch (NumberFormatException e) {
+                                e.printStackTrace();
+                                JOptionPane.showMessageDialog(null, "서버에서 잘못된 카드 번호를 수신했습니다.", "오류", JOptionPane.ERROR_MESSAGE);
+                            }
+                        } else if (msgFromServer.startsWith("ROUND_RESULT:")) {
+                            String result = msgFromServer.substring(13).trim();
+                            SwingUtilities.invokeLater(() -> gameFrame.updateRoundResult(result));
+
                         } else {
-                            // 일반 메시지는 로비의 채팅창에 전달
                             gameFrame.appendMessageToLobby(msgFromServer);
                         }
                     }
@@ -89,16 +116,12 @@ public class ClientStart {
         }).start();
     }
 
-
     // 리소스 정리 메서드
     public void closeEverything() {
         try {
-            if (bufferedReader != null)
-                bufferedReader.close();
-            if (bufferedWriter != null)
-                bufferedWriter.close();
-            if (socket != null)
-                socket.close();
+            if (bufferedReader != null) bufferedReader.close();
+            if (bufferedWriter != null) bufferedWriter.close();
+            if (socket != null) socket.close();
             System.out.println("Connection closed");
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,16 +130,13 @@ public class ClientStart {
 
     public void closeConnection() throws IOException {
         if (socket != null) {
-            bufferedWriter.write("EXIT"); // 서버에 종료 알림 메시지
+            bufferedWriter.write("EXIT");
             bufferedWriter.newLine();
             bufferedWriter.flush();
-            
-            bufferedReader.close();
-            bufferedWriter.close();
-            socket.close();
-
+            closeEverything();
         }
     }
+
     public BufferedReader getBufferedReader() {
         return bufferedReader;
     }

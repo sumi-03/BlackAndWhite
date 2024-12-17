@@ -1,6 +1,7 @@
 package ClientHandler;
 
 import Server.StartServer;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -40,42 +41,48 @@ public class Clienthandler implements Runnable {
 
                 if (messageFromClient != null) {
                     System.out.println("Received: " + messageFromClient);
+
                     if (messageFromClient.equals("EXIT")) {
                         removeClientHandler();
                         closeEverything(socket, bufferedReader, bufferedWriter);
-                    }
-                    else if (messageFromClient.startsWith("CREATE_ROOM:")) {
+
+                    } else if (messageFromClient.startsWith("CREATE_ROOM:")) {
                         String roomTitle = messageFromClient.substring(12).trim();
                         System.out.println(clientUsername + " is creating room: " + roomTitle);
-
-                        // StartServer의 createRoom 메서드 호출
                         server.createRoom(roomTitle, clientUsername);
 
-                    } 
-                    else if (messageFromClient.startsWith("DELETE_ROOM:")) {
+                    } else if (messageFromClient.startsWith("DELETE_ROOM:")) {
                         String roomTitle = messageFromClient.substring(12).trim();
                         System.out.println(clientUsername + " is deleting the room: " + roomTitle);
-
-                         // StartServer의 deleteRoom 메서드 호출
                         server.deleteRoom(roomTitle, clientUsername);
-                    
-                    }else if (messageFromClient.startsWith("JOIN_ROOM:")) {
+
+                    } else if (messageFromClient.startsWith("JOIN_ROOM:")) {
                         String roomTitle = messageFromClient.substring(10).trim();
                         System.out.println(clientUsername + " is joining room: " + roomTitle);
-
-                        // StartServer의 playerJoinRoom 메서드 호출
                         server.playerJoinRoom(roomTitle, clientUsername);
 
                     } else if (messageFromClient.equals("REQUEST_USERLIST")) {
                         System.out.println(clientUsername + " requested user list.");
-                        broadcastUserList(); // 유저리스트 브로드캐스트
+                        broadcastUserList();
 
                     } else if (messageFromClient.equals("REQUEST_ROOMLIST")) {
                         System.out.println(clientUsername + " requested room list.");
-                        server.broadcastRoomList(); // 방 목록 브로드캐스트
+                        server.broadcastRoomList();
 
-                    } 
-                    else {    // 일반 메시지 처리
+                    } else if (messageFromClient.startsWith("SUBMIT_CARD:")) {
+                        int cardNumber = Integer.parseInt(messageFromClient.substring(12).trim());
+                        System.out.println(clientUsername + " submitted card: " + cardNumber);
+                        server.submitCard(clientUsername, cardNumber);
+
+                        // 상대방에게 카드 제출 정보 전송
+                        for (Clienthandler clientHandler : clientHandlers) {
+                            if (!clientHandler.clientUsername.equals(clientUsername)) {
+                                clientHandler.sendMessage("OPPONENT_CARD_SUBMITTED:" + cardNumber);
+                            }
+                        }
+
+                    } else {
+                        // 일반 메시지 처리
                         String formattedMessage = clientUsername + ": " + messageFromClient;
                         System.out.println(formattedMessage);
                         broadcastMessage(formattedMessage);
@@ -88,6 +95,15 @@ public class Clienthandler implements Runnable {
         }
     }
 
+    public void sendMessage(String message) {
+        try {
+            bufferedWriter.write(message);
+            bufferedWriter.newLine();
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            closeEverything(socket, bufferedReader, bufferedWriter);
+        }
+    }
 
     public void broadcastMessage(String message) {
         for (Clienthandler clientHandler : clientHandlers) {

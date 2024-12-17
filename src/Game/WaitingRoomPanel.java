@@ -1,10 +1,12 @@
 package Game;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WaitingRoomPanel extends JPanel {
     private static final long serialVersionUID = 1L;
@@ -16,6 +18,7 @@ public class WaitingRoomPanel extends JPanel {
     private GameFrame parentFrame;
     private String host = "";
     private String opponent= "";
+    private boolean countdownStarted = false;
 
     public WaitingRoomPanel(RoomInfo room, GameFrame parentFrame, boolean isHost, String hostName, String roomTitle, boolean isPrivate, String password) {
         this.parentFrame = parentFrame;
@@ -85,10 +88,43 @@ public class WaitingRoomPanel extends JPanel {
 
     // 상대방 이름 업데이트 메서드
     public void updateBluePlayer(String opponentName) {
+        this.opponent = opponentName;
         opponentNameLabel.setText("BLUE 플레이어: " + opponentName);
         revalidate();
         repaint();
+
+        System.out.println("Host: " + host);
+        System.out.println("Opponent: " + opponentName);
+
+        if (!countdownStarted) {
+            countdownStarted = true;
+            startCountdownToGame();
+        }
     }
+
+    // 두 플레이어 입장 후 카운트 다운 -> 게임패널로 넘어감
+    public void startCountdownToGame() {
+        if (!countdownStarted) {
+            countdownStarted = true;
+            Timer timer = new Timer();
+            TimerTask task = new TimerTask() {
+                int countdown = 5;
+
+                @Override
+                public void run() {
+                    if (countdown > 0) {
+                        System.out.println("게임 시작까지: " + countdown + "초");
+                        countdown--;
+                    } else {
+                        timer.cancel();
+                        SwingUtilities.invokeLater(() -> parentFrame.showGamePanel());
+                    }
+                }
+            };
+            timer.scheduleAtFixedRate(task, 0, 1000);
+        }
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {
