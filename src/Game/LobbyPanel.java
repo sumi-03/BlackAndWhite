@@ -4,7 +4,6 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
-import java.util.List;
 
 public class LobbyPanel extends JPanel {
     private Image backgroundImage;
@@ -13,10 +12,12 @@ public class LobbyPanel extends JPanel {
     private JTextArea textArea;
     private JPanel roomListPanel;
     private GameFrame parentFrame;
+    private LobbyPanel lobbyPanel;
     private JPanel[] roomPanels;
 
     public LobbyPanel(GameFrame parentFrame, MusicPlayer musicPlayer, String playerName) {
         this.parentFrame = parentFrame; // parentFrame 초기화
+        lobbyPanel = this;
         setPreferredSize(new Dimension(960, 600));
         setLayout(null);
         this.musicPlayer = musicPlayer;
@@ -229,7 +230,7 @@ public class LobbyPanel extends JPanel {
         });
     }
     // 방 목록을 업데이트하는 메서드
-    public void updateRoomList(List<RoomInfo> rooms) {
+    public void updateRoomList() {
         SwingUtilities.invokeLater(() -> {
             if (roomPanels == null) {
                 System.out.println("Error: roomPanels is not initialized.");
@@ -243,8 +244,12 @@ public class LobbyPanel extends JPanel {
             }
 
             // 최대 6개의 방을 순서대로 표시
-            for (int i = 0; i < Math.min(rooms.size(), roomPanels.length); i++) {
-                RoomInfo room = rooms.get(i);
+
+           // List<RoomInfo> rooms = RoomInfo.getRoomList();
+
+
+            for (int i = 0; i < Math.min(RoomInfo.getRoomList().size(), roomPanels.length); i++) {
+                RoomInfo room = RoomInfo.getRoomList().get(i);
                 JPanel panel = roomPanels[i];
 
                 // 방 제목 라벨
@@ -270,9 +275,18 @@ public class LobbyPanel extends JPanel {
                     @Override
                     public void mouseClicked(java.awt.event.MouseEvent e) {
 
-                        room.setOpponentName(parentFrame.getClient().getUserName());
-                        parentFrame.sendMessage("JOIN_ROOM:" + room.getRoomTitle());
-                        parentFrame.showWaitingRoomPanel(room, false, false, "");
+                        if(room.getRoomFullStatus()){
+                            JOptionPane.showMessageDialog(lobbyPanel, "이 방은 이미 가득 찼습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+                            return;
+
+                        }
+                        else{
+
+                            room.setRoomFullStatus(true);
+                            room.setOpponentName(parentFrame.getClient().getUserName());
+                            parentFrame.sendMessage("JOIN_ROOM:" + room.getRoomTitle());
+                            parentFrame.showWaitingRoomPanel(room, false, false, "");
+                        }
 
                     }
                 });

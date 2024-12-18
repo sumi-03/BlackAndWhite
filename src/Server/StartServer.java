@@ -8,14 +8,12 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 import static ClientHandler.Clienthandler.clientHandlers;
 
 public class StartServer {
     private ServerSocket serverSocket;
-    private static List<RoomInfo> roomList = new ArrayList<>();
+    //  private static List<RoomInfo> roomList = new ArrayList<>();
     private int[] submittedCards = new int[2];           // 제출된 카드 번호 저장
     private String[] submittingPlayers = new String[2];  // 카드 제출한 플레이어 이름 저장
     private int submittedCount = 0;                      // 현재 제출된 카드 수
@@ -42,21 +40,18 @@ public class StartServer {
     // 방 생성 메서드
     public void createRoom(String roomTitle, String hostName) {
 
-        synchronized (roomList) {
+        RoomInfo newRoom = new RoomInfo(roomTitle, hostName, "대기중...");
+        RoomInfo.addRoomList(newRoom);
+        System.out.println("방 생성 완료. roomList size: " + RoomInfo.getRoomList().size());
+        System.out.println("Room created: " + roomTitle + ", Host: " + hostName);
 
-            RoomInfo newRoom = new RoomInfo(roomTitle, hostName, "대기중...");
-            roomList.add(newRoom);
-            System.out.println("방 생성 완료. roomList size: " + roomList.size());
-            System.out.println("Room created: " + roomTitle + ", Host: " + hostName);
-
-            for (RoomInfo room : roomList) {
-                System.out.println("RoomTitle: " + room.getRoomTitle() + ", Host: " + room.getHostName());
-            }
-
-
-            broadcastRoomList();
-
+        for (RoomInfo room : RoomInfo.getRoomList()) {
+            System.out.println("RoomTitle: " + room.getRoomTitle() + ", Host: " + room.getHostName());
         }
+
+
+        broadcastRoomList();
+
 
         for (Clienthandler client : clientHandlers) {
             if (client.getClientUsername().equals(hostName)) {
@@ -74,9 +69,8 @@ public class StartServer {
 
     // 방 삭제 메서드
     public void deleteRoom(String roomTitle, String hostName) {
-        synchronized (roomList) {
-            roomList.removeIf(room -> room.getRoomTitle().equals(roomTitle) && room.getHostName().equals(hostName));
-        }
+
+        RoomInfo.removeRoomList(roomTitle, hostName);
         System.out.println("Room deleted: " + roomTitle + ", Host: " + hostName);
         broadcastRoomList();
     }
@@ -84,13 +78,13 @@ public class StartServer {
     // 방 목록 브로드캐스트 메서드
     public void broadcastRoomList() {
         StringBuilder roomListMessage = new StringBuilder("ROOMLIST:");
-        synchronized (roomList) {
-            for (RoomInfo room : roomList) {
+
+            for (RoomInfo room : RoomInfo.getRoomList()) {
                 roomListMessage.append(room.getRoomTitle()).append(",")
                         .append(room.getHostName()).append(",")
                         .append(room.getStatus()).append(";");
             }
-        }
+
 
         for (Clienthandler client : clientHandlers) {
             try {
@@ -105,29 +99,38 @@ public class StartServer {
 
     // 플레이어가 방에 입장할 때 호출되는 메서드
     public void playerJoinRoom(String roomTitle, String playerName) {
-        synchronized (roomList) {
-            for (RoomInfo room : roomList) {
-                if (room.getRoomTitle().equals(roomTitle) && room.getOpponentName().equals("???")) {
-                    room.setOpponentName(playerName);
-                    room.setStatus("게임중");
-                    broadcastRoomList();
-
-                    // 호스트에게 START_COUNTDOWN 신호 전송
-                    sendCountdownSignal(room.getHostName());
-                    // 상대방에게는 START_GAME 신호 전송
-                    sendCountdownSignal(playerName);
-
+        for (RoomInfo room : RoomInfo.getRoomList()) {
+            if (room.getRoomTitle().equals(roomTitle)) {
+                if (room.getRoomFullStatus()) {
+                    // Notify the player that the room is full
                     for (Clienthandler client : clientHandlers) {
-
-                        if (client.getClientUsername().equals(room.getHostName())) {
-
-                            client.sendMessage("OPPONENT_JOINED:" + room.getRoomTitle() + "," + playerName);
+                        if (client.getClientUsername().equals(playerName)) {
+                            client.sendMessage("ERROR: 방이 가득 찼습니다.");
                         }
                     }
+                    return;
                 }
+
+                // Add the player to the room if not full
+                room.setOpponentName(playerName);
+                room.setStatus("게임중");
+                room.setRoomFullStatus(true);
+                broadcastRoomList();
+
+                // Notify host and opponent
+                sendCountdownSignal(room.getHostName());
+                sendCountdownSignal(playerName);
+
+                for (Clienthandler client : clientHandlers) {
+                    if (client.getClientUsername().equals(room.getHostName())) {
+                        client.sendMessage("OPPONENT_JOINED:" + room.getRoomTitle() + "," + playerName);
+                    }
+                }
+                return;
             }
         }
     }
+
 
     private void sendCountdownSignal(String playerName) {
         for (Clienthandler client : clientHandlers) {
@@ -173,27 +176,6 @@ public class StartServer {
             resetRound();
         }
     }
-
-    // 상대방 이름 반환 메서드
-    public static String getOpponentName(boolean isHost, String playerName) {
-        int i = 0;
-
-        System.out.println("### roomList size: " + roomList.size());
-        System.out.flush(); // 버퍼 비우기: roomList 크기를 즉시 확인
-
-        for (RoomInfo room : roomList) {
-            System.out.println("출력:::: " + i++ + room.getHostName() + room.getOpponentName());
-            System.out.flush(); // 버퍼 비우기: 방 정보 즉시 확인
-
-            if (isHost && room.getHostName().equals(playerName)) {
-                return room.getOpponentName();
-            } else if (!isHost && room.getOpponentName().equals(playerName)) {
-                return room.getHostName();
-            }
-        }
-        return "빵";
-    }
-
 
     // 라운드 승자 결정 메서드
     private void determineRoundWinner() {

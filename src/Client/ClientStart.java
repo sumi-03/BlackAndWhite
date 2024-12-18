@@ -1,12 +1,13 @@
 package Client;
 
-import Game.*;
+import Game.GameFrame;
+import Game.GamePanel;
+import Game.RoomInfo;
+import Game.WaitingRoomPanel;
 
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ClientStart {
     private Socket socket;
@@ -58,16 +59,16 @@ public class ClientStart {
 
                         } else if (msgFromServer.startsWith("ROOMLIST:")) {
                             String[] roomData = msgFromServer.substring(9).split(";");
-                            List<RoomInfo> rooms = new ArrayList<>();
+                            // List<RoomInfo> rooms = new ArrayList<>();
 
                             for (String data : roomData) {
                                 String[] details = data.split(",");
                                 if (details.length == 3) {
-                                    rooms.add(new RoomInfo(details[0], details[1], details[2]));
+                                    RoomInfo.getRoomList().add(new RoomInfo(details[0], details[1], details[2]));
                                 }
                             }
 
-                            gameFrame.updateRoomList(rooms);
+                            gameFrame.updateRoomList();
 
                         } else if (msgFromServer.startsWith("OPPONENT_JOINED:")) {
                             String[] parts = msgFromServer.substring(16).split(",");

@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="상대방 매칭 후 카운트다운 표시 및 게임 시작 필수 처리, 로비 방 정보 스타일 수정, 게임 시작 시 유저 이름 표시 구현 중">
+    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="상대방 매칭 후 카운트다운 표시 및 게임 시작 필수 처리, 로비 방 정보 스타일 수정, 게임 시작 후 유저 이름 표시 구현 중">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/ClientStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GameFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GamePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/LobbyPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/LobbyPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/RoomInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/RoomInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/StartServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/StartServer.java" afterDir="false" />
     </list>
@@ -113,7 +116,7 @@
       <recent name="$PROJECT_DIR$/src/Images" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Client1">
+  <component name="RunManager" selected="Application.Client3">
     <configuration name="Client1" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Game.App" />
       <module name="BlackAndWhite" />
@@ -192,7 +195,7 @@
       <workItem from="1733229910056" duration="9253000" />
       <workItem from="1734280500748" duration="7268000" />
       <workItem from="1734441892602" duration="1227000" />
-      <workItem from="1734526856349" duration="6291000" />
+      <workItem from="1734526856349" duration="13947000" />
     </task>
     <task id="LOCAL-00001" summary="16:10으로 gameframe 해상도 변경">
       <option name="closed" value="true" />
@@ -306,7 +309,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734419504013</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="상대방 매칭 후 카운트다운 표시 및 게임 시작 필수 처리, 로비 방 정보 스타일 수정, 게임 시작 후 유저 이름 표시 구현 중">
+      <option name="closed" value="true" />
+      <created>1734533329958</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1734533329958</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -351,7 +362,8 @@
     <MESSAGE value="자신의 화면에서 상대방이 카드를 제출하면 상대방의 카드 더미에서 제출한 카드가 삭제되는 기능 구현 등 게임 기본 룰 설정. 9라운드 5선승제" />
     <MESSAGE value="카드를 객체로 설정함" />
     <MESSAGE value="상대방 매칭 후 카운트다운 표시 및 게임 시작 필수 처리, 로비 방 정보 스타일 수정, 게임 시작 시 유저 이름 표시 구현 중" />
-    <option name="LAST_COMMIT_MESSAGE" value="상대방 매칭 후 카운트다운 표시 및 게임 시작 필수 처리, 로비 방 정보 스타일 수정, 게임 시작 시 유저 이름 표시 구현 중" />
+    <MESSAGE value="상대방 매칭 후 카운트다운 표시 및 게임 시작 필수 처리, 로비 방 정보 스타일 수정, 게임 시작 후 유저 이름 표시 구현 중" />
+    <option name="LAST_COMMIT_MESSAGE" value="상대방 매칭 후 카운트다운 표시 및 게임 시작 필수 처리, 로비 방 정보 스타일 수정, 게임 시작 후 유저 이름 표시 구현 중" />
   </component>
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>

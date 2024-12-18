@@ -1,7 +1,5 @@
 package Game;
 
-import Server.StartServer;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -39,8 +37,8 @@ public class GamePanel extends JPanel {
         System.out.println("getOpponentName 메서드 호출됨: isHost=" + isHost + ", playerName=" + playerName);
 
 
-        this.redPlayerName = isHost ? playerName : StartServer.getOpponentName(isHost, playerName);
-        this.bluePlayerName = isHost ? StartServer.getOpponentName(isHost, playerName) : playerName;
+        this.redPlayerName = isHost ? playerName : RoomInfo.getOpponentName(isHost, playerName);
+        this.bluePlayerName = isHost ? RoomInfo.getOpponentName(isHost, playerName) : playerName;
         this.musicPlayer = musicPlayer;
         //red blue 이름 출력
         System.out.println("RED: " + redPlayerName);

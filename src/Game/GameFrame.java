@@ -4,7 +4,6 @@ import Client.ClientStart;
 
 import javax.swing.*;
 import java.io.IOException;
-import java.util.List;
 
 public class GameFrame extends JFrame {
     private LobbyPanel lobbyPanel;
@@ -128,9 +127,9 @@ public class GameFrame extends JFrame {
         return playerName;
     }
 
-    public void updateRoomList(List<RoomInfo> rooms) {
+    public void updateRoomList() {
         if (lobbyPanel != null) {
-            lobbyPanel.updateRoomList(rooms);
+            lobbyPanel.updateRoomList();
         } else {
             System.out.println("LobbyPanel is null, cannot update room list.");
         }
@@ -147,7 +146,12 @@ public class GameFrame extends JFrame {
 
     // WaitingRoomPanel로 전환
     public void showWaitingRoomPanel(RoomInfo room, boolean isPrivate, boolean isHost, String password) {
-        
+
+        if (room.getRoomFullStatus() && !isHost) {
+            JOptionPane.showMessageDialog(this, "이 방은 이미 가득 찼습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
         WaitingRoomPanel waitingRoomPanel = new WaitingRoomPanel( room, this,isHost, playerName, room.getRoomTitle(), isPrivate, password);
         setContentPane(waitingRoomPanel);
         revalidate();

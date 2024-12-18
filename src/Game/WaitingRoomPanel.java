@@ -92,6 +92,7 @@ public class WaitingRoomPanel extends JPanel {
         backButton.setFont(new Font("Malgun Gothic", Font.BOLD, 14));
         backButton.addActionListener(e -> {
             parentFrame.sendMessage("DELETE_ROOM:" + roomTitle); // 방 제거 요청
+            RoomInfo.removeRoomList(roomTitle, hostName); //
             parentFrame.showLobbyPanel(parentFrame.getPlayerName());
             parentFrame.requestUserList();
         });
