@@ -41,11 +41,21 @@ public class StartServer {
 
     // 방 생성 메서드
     public void createRoom(String roomTitle, String hostName) {
+
         synchronized (roomList) {
+
             RoomInfo newRoom = new RoomInfo(roomTitle, hostName, "대기중...");
             roomList.add(newRoom);
+            System.out.println("방 생성 완료. roomList size: " + roomList.size());
             System.out.println("Room created: " + roomTitle + ", Host: " + hostName);
+
+            for (RoomInfo room : roomList) {
+                System.out.println("RoomTitle: " + room.getRoomTitle() + ", Host: " + room.getHostName());
+            }
+
+
             broadcastRoomList();
+
         }
 
         for (Clienthandler client : clientHandlers) {
@@ -74,10 +84,12 @@ public class StartServer {
     // 방 목록 브로드캐스트 메서드
     public void broadcastRoomList() {
         StringBuilder roomListMessage = new StringBuilder("ROOMLIST:");
-        for (RoomInfo room : roomList) {
-            roomListMessage.append(room.getRoomTitle()).append(",")
-                    .append(room.getHostName()).append(",")
-                    .append(room.getStatus()).append(";");
+        synchronized (roomList) {
+            for (RoomInfo room : roomList) {
+                roomListMessage.append(room.getRoomTitle()).append(",")
+                        .append(room.getHostName()).append(",")
+                        .append(room.getStatus()).append(";");
+            }
         }
 
         for (Clienthandler client : clientHandlers) {
@@ -161,6 +173,27 @@ public class StartServer {
             resetRound();
         }
     }
+
+    // 상대방 이름 반환 메서드
+    public static String getOpponentName(boolean isHost, String playerName) {
+        int i = 0;
+
+        System.out.println("### roomList size: " + roomList.size());
+        System.out.flush(); // 버퍼 비우기: roomList 크기를 즉시 확인
+
+        for (RoomInfo room : roomList) {
+            System.out.println("출력:::: " + i++ + room.getHostName() + room.getOpponentName());
+            System.out.flush(); // 버퍼 비우기: 방 정보 즉시 확인
+
+            if (isHost && room.getHostName().equals(playerName)) {
+                return room.getOpponentName();
+            } else if (!isHost && room.getOpponentName().equals(playerName)) {
+                return room.getHostName();
+            }
+        }
+        return "빵";
+    }
+
 
     // 라운드 승자 결정 메서드
     private void determineRoundWinner() {

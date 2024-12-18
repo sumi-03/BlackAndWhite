@@ -1,18 +1,19 @@
 package Game;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 public class WaitingRoomPanel extends JPanel {
     private static final long serialVersionUID = 1L;
     private JLabel hostNameLabel;
     private JLabel opponentNameLabel;
     private JLabel roomTitleLabel;
+    private JLabel countdownLabel;
     private JLabel privacyLabel;
     private Image backgroundImage;
     private GameFrame parentFrame;
@@ -20,6 +21,7 @@ public class WaitingRoomPanel extends JPanel {
     private String opponent= "";
     private boolean countdownStarted = false;
     private boolean isHost;
+    private JButton backButton;
 
     public WaitingRoomPanel(RoomInfo room, GameFrame parentFrame, boolean isHost, String hostName, String roomTitle,
             boolean isPrivate, String password) {
@@ -51,12 +53,19 @@ public class WaitingRoomPanel extends JPanel {
         roomTitleLabel.setBounds(0, 30, 960, 30);
         add(roomTitleLabel);
 
+        // 게임 시작까지 남은 시간 라벨
+        countdownLabel = new JLabel("상대방이 아직 입장하지 않았습니다", SwingConstants.CENTER);
+        countdownLabel.setForeground(Color.WHITE);
+        countdownLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 13));
+        countdownLabel.setBounds(0, 60, 960, 30);
+        add(countdownLabel);
+
         // 비밀방 여부 라벨 (상단 중앙)
         String privacyText = isPrivate ? "비밀방 (비밀번호: " + password + ")" : "공개방";
         privacyLabel = new JLabel(privacyText, SwingConstants.CENTER);
         privacyLabel.setForeground(Color.WHITE);
         privacyLabel.setFont(new Font("Malgun Gothic", Font.BOLD, 18));
-        privacyLabel.setBounds(0, 70, 960, 30);
+        privacyLabel.setBounds(0, 90, 960, 30);
         add(privacyLabel);
 
         // 방장 이름 라벨 (왼쪽 하단)
@@ -74,7 +83,7 @@ public class WaitingRoomPanel extends JPanel {
         add(opponentNameLabel);
 
         // 뒤로 가기 버튼
-        JButton backButton = new JButton("뒤로가기");
+        backButton = new JButton("뒤로가기");
         backButton.setBounds(820, 30, 100, 40);
         backButton.setFocusPainted(false);
         backButton.setContentAreaFilled(false);
@@ -94,7 +103,7 @@ public class WaitingRoomPanel extends JPanel {
     public void updateBluePlayer(String opponentName) {
 
         this.opponent = opponentName;
-        opponentNameLabel.setText("BLUE 플레이어: " + opponent);
+        opponentNameLabel.setText("BLUE 플레이어: " + opponentName);
 
         this.revalidate();
         this.repaint();
@@ -111,6 +120,8 @@ public class WaitingRoomPanel extends JPanel {
     // 두 플레이어 입장 후 카운트 다운 -> 게임패널로 넘어감
     public void startCountdownToGame() {
         
+        this.remove(backButton); // backButton 제거
+
         if (!countdownStarted) {
             countdownStarted = true;
             Timer timer = new Timer();
@@ -122,6 +133,8 @@ public class WaitingRoomPanel extends JPanel {
                     try {
                         if (countdown > 0) {
                             System.out.println("게임 시작까지: " + countdown + "초");
+                            countdownLabel.setText("게임 시작까지: " + countdown + "초");
+                            repaint();
                             countdown--;
                         } else {
                             timer.cancel();

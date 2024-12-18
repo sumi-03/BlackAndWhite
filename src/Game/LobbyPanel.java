@@ -171,7 +171,7 @@ public class LobbyPanel extends JPanel {
         for (int i = 0; i < roomPanels.length; i++) {
             roomPanels[i] = new JPanel();
             roomPanels[i].setLayout(null);
-            roomPanels[i].setBorder(BorderFactory.createLineBorder(Color.GRAY));
+            roomPanels[i].setOpaque(false);
             roomPanels[i].setVisible(false);
             roomListPanel.add(roomPanels[i]);
         }
@@ -248,17 +248,20 @@ public class LobbyPanel extends JPanel {
                 JPanel panel = roomPanels[i];
 
                 // 방 제목 라벨
-                JLabel titleLabel = new JLabel("방 제목: " + room.getRoomTitle());
+                JLabel titleLabel = new JLabel("<< " + room.getRoomTitle() + " >>");
+                titleLabel.setForeground(Color.WHITE);
                 titleLabel.setBounds(10, 10, 100, 20);
                 panel.add(titleLabel);
 
                 // 방장 라벨
                 JLabel hostLabel = new JLabel("방장: " + room.getHostName());
+                hostLabel.setForeground(Color.WHITE);
                 hostLabel.setBounds(10, 30, 100, 20);
                 panel.add(hostLabel);
 
                 // 상태 라벨
                 JLabel statusLabel = new JLabel("상태: " + room.getStatus());
+                statusLabel.setForeground(Color.WHITE);
                 statusLabel.setBounds(10, 50, 100, 20);
                 panel.add(statusLabel);
 
