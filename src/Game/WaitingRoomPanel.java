@@ -22,11 +22,13 @@ public class WaitingRoomPanel extends JPanel {
     private boolean countdownStarted = false;
     private boolean isHost;
     private JButton backButton;
+    private String roomTitle;
 
-    public WaitingRoomPanel(RoomInfo room, GameFrame parentFrame, boolean isHost, String hostName, String roomTitle,
-            boolean isPrivate, String password) {
+    public WaitingRoomPanel(RoomInfo room, GameFrame parentFrame, boolean isHost, String hostName, String roomTitle, boolean isPrivate, String password) {
         this.isHost = isHost;
         this.parentFrame = parentFrame;
+        this.roomTitle = roomTitle;
+
         setLayout(null);
         setPreferredSize(new Dimension(960, 600));
 
@@ -119,9 +121,6 @@ public class WaitingRoomPanel extends JPanel {
 
     // 두 플레이어 입장 후 카운트 다운 -> 게임패널로 넘어감
     public void startCountdownToGame() {
-        
-        this.remove(backButton); // backButton 제거
-
         if (!countdownStarted) {
             countdownStarted = true;
             Timer timer = new Timer();
@@ -133,12 +132,10 @@ public class WaitingRoomPanel extends JPanel {
                     try {
                         if (countdown > 0) {
                             System.out.println("게임 시작까지: " + countdown + "초");
-                            countdownLabel.setText("게임 시작까지: " + countdown + "초");
-                            repaint();
                             countdown--;
                         } else {
                             timer.cancel();
-                            SwingUtilities.invokeLater(() -> parentFrame.showGamePanel(isHost)); // 호스트 여부 전달
+                            SwingUtilities.invokeLater(() -> parentFrame.showGamePanel(isHost, roomTitle)); // 방 제목 전달
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

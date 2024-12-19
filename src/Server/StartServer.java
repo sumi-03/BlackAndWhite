@@ -1,7 +1,6 @@
 package Server;
 
 import ClientHandler.Clienthandler;
-import Game.Card;
 import Game.RoomInfo;
 
 import java.io.IOException;
@@ -41,35 +40,15 @@ public class StartServer {
 
     // 방 생성 메서드
     public void createRoom(String roomTitle, String hostName) {
-
         synchronized (roomList) {
-
             RoomInfo newRoom = new RoomInfo(roomTitle, hostName, "대기중...");
             roomList.add(newRoom);
-            System.out.println("방 생성 완료. roomList size: " + roomList.size());
             System.out.println("Room created: " + roomTitle + ", Host: " + hostName);
-
-            for (RoomInfo room : roomList) {
-                System.out.println("RoomTitle: " + room.getRoomTitle() + ", Host: " + room.getHostName());
-            }
-
-
-            broadcastRoomList();
-
+            broadcastRoomList(); // 방 목록 브로드캐스트
         }
 
-        for (Clienthandler client : clientHandlers) {
-            if (client.getClientUsername().equals(hostName)) {
-                try {
-                    client.getBufferedWriter().write("CREATE_ROOM_COMPLETED:" + roomTitle);
-                    client.getBufferedWriter().newLine();
-                    client.getBufferedWriter().flush();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            }
-        }
+        // 방 생성 후 호스트를 자동으로 입장시킴
+        playerJoinRoom(roomTitle, hostName, false); // false로 전달하여 카운트다운 시작 방지
     }
 
     // 방 삭제 메서드
@@ -104,30 +83,57 @@ public class StartServer {
     }
 
     // 플레이어가 방에 입장할 때 호출되는 메서드
-    public void playerJoinRoom(String roomTitle, String playerName) {
+    public void playerJoinRoom(String roomTitle, String playerName, boolean isHost) {
         synchronized (roomList) {
             for (RoomInfo room : roomList) {
-                if (room.getRoomTitle().equals(roomTitle) && room.getOpponentName().equals("???")) {
-                    room.setOpponentName(playerName);
-                    room.setStatus("게임중");
-                    broadcastRoomList();
+                if (room.getRoomTitle().equals(roomTitle)) {
+                    if (room.getHostName().equals(playerName)) {
+                        System.out.println(playerName + " (host) joined the room: " + roomTitle);
+                        room.setStatus("대기중...");
+                    } else if (room.getOpponentName().equals("???")) {
+                        room.setOpponentName(playerName);
+                        room.setStatus("게임중");
+                        broadcastRoomList();
 
-                    // 호스트에게 START_COUNTDOWN 신호 전송
-                    sendCountdownSignal(room.getHostName());
-                    // 상대방에게는 START_GAME 신호 전송
-                    sendCountdownSignal(playerName);
+                        // 호스트에게 START_COUNTDOWN 신호 전송
+                        sendCountdownSignal(room.getHostName());
+                        // 상대방에게 START_GAME 신호 전송
+                        sendStartGameSignal(playerName, "OPPONENT");
 
-                    for (Clienthandler client : clientHandlers) {
-
-                        if (client.getClientUsername().equals(room.getHostName())) {
-
-                            client.sendMessage("OPPONENT_JOINED:" + room.getRoomTitle() + "," + playerName);
+                        // 호스트에게 상대방 입장 알림
+                        for (Clienthandler client : clientHandlers) {
+                            if (client.getClientUsername().equals(room.getHostName())) {
+                                client.sendMessage("OPPONENT_JOINED:" + room.getRoomTitle() + "," + playerName);
+                            }
                         }
                     }
                 }
             }
         }
     }
+
+    private void sendStartGameSignal(String playerName, String role) {
+        // 먼저 카운트다운 신호를 보냄
+        sendCountdownSignal(playerName);
+
+        // 5초 후에 START_GAME 신호를 보냄
+        new Thread(() -> {
+            try {
+                Thread.sleep(5000); // 5초 대기
+                for (Clienthandler client : clientHandlers) {
+                    if (client.getClientUsername().equals(playerName)) {
+                        client.getBufferedWriter().write("START_GAME:" + role);
+                        client.getBufferedWriter().newLine();
+                        client.getBufferedWriter().flush();
+                        break;
+                    }
+                }
+            } catch (InterruptedException | IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
 
     private void sendCountdownSignal(String playerName) {
         for (Clienthandler client : clientHandlers) {
@@ -145,28 +151,33 @@ public class StartServer {
     }
 
     // 카드 제출 처리 메서드에서 상대방 카드 제출 메시지 전송
-    public synchronized void submitCard(String playerName, int cardNumber) {
-        if (submittedCount < 2) {
-            submittingPlayers[submittedCount] = playerName;
-            submittedCards[submittedCount] = new Card(cardNumber).getNumber(); // Card 객체 생성 후 저장
-            submittedCount++;
-            System.out.println(playerName + "님이 카드 " + cardNumber + "를 제출했습니다.");
+    public void submitCard(String playerName, int cardNumber, String roomTitle) {
+        synchronized (roomList) {
+            for (RoomInfo room : roomList) {
+                if (room.getRoomTitle().equals(roomTitle)) {
+                    if (room.submitCard(playerName, cardNumber)) {
+                        System.out.println(playerName + "님이 방 '" + roomTitle + "'에 카드 " + cardNumber + "를 제출했습니다.");
 
-            // 상대방에게 카드 제출 알림 (카드 번호 전송) - 중복 방지
-            if (submittedCount == 1) {
-                for (Clienthandler client : clientHandlers) {
-                    if (!client.getClientUsername().equals(playerName)) {
-                        try {
-                            client.getBufferedWriter().write("OPPONENT_CARD_SUBMITTED:" + cardNumber);
-                            client.getBufferedWriter().newLine();
-                            client.getBufferedWriter().flush();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        // 상대방에게 카드 제출 알림
+                        for (Clienthandler client : clientHandlers) {
+                            if (!client.getClientUsername().equals(playerName) &&
+                                    (client.getClientUsername().equals(room.getHostName()) || client.getClientUsername().equals(room.getOpponentName()))) {
+                                client.sendMessage("OPPONENT_CARD_SUBMITTED:" + cardNumber);
+                            }
+                        }
+
+                        // 두 장이 제출되면 라운드 결과를 결정하고 알림
+                        String result = room.determineRoundWinner();
+                        if (result != null) {
+                            broadcastMessage(result);
                         }
                     }
+                    break;
                 }
             }
         }
+
+
 
         if (submittedCount == 2) {
             determineRoundWinner();

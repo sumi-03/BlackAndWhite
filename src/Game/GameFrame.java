@@ -162,9 +162,9 @@ public class GameFrame extends JFrame {
     }
 
     //게임 패널 전환
-    public void showGamePanel(boolean isHost) {
+    public void showGamePanel(boolean isHost, String roomTitle) {
         try {
-            GamePanel gamePanel = new GamePanel(this, playerName, musicPlayer, isHost);
+            GamePanel gamePanel = new GamePanel(this, playerName, musicPlayer, isHost, roomTitle);
             setContentPane(gamePanel);
             revalidate();
             repaint();

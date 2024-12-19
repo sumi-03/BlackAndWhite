@@ -27,33 +27,40 @@ public class GamePanel extends JPanel {
     private String bluePlayerName; // BLUE 플레이어 이름
     private GameFrame parentFrame; // 부모 프레임
     private boolean isInitialized = false;
+    private String currentRoomTitle; //현재 방 제목
 
 
-    
 
-    public GamePanel(GameFrame parentFrame, String playerName, MusicPlayer musicPlayer, boolean isHost)
+
+    public GamePanel(GameFrame parentFrame, String playerName, MusicPlayer musicPlayer, boolean isHost, String currentRoomTitle)
             throws IOException {
         this.playerName = playerName;
         this.parentFrame = parentFrame;
+        this.currentRoomTitle = currentRoomTitle;
+        this.musicPlayer = musicPlayer;
 
         System.out.println("getOpponentName 메서드 호출됨: isHost=" + isHost + ", playerName=" + playerName);
 
+        // 상대방 이름 가져오기
+        String opponentName = StartServer.getOpponentName(isHost, playerName);
 
-        this.redPlayerName = isHost ? playerName : StartServer.getOpponentName(isHost, playerName);
-        this.bluePlayerName = isHost ? StartServer.getOpponentName(isHost, playerName) : playerName;
-        this.musicPlayer = musicPlayer;
-        //red blue 이름 출력
+        if (isHost) {
+            this.redPlayerName = playerName;
+            this.bluePlayerName = opponentName;
+        } else {
+            this.redPlayerName = opponentName;
+            this.bluePlayerName = playerName;
+        }
+
+        // 플레이어 이름 출력 확인
         System.out.println("RED: " + redPlayerName);
         System.out.println("BLUE: " + bluePlayerName);
+
         // 초기화 완료
         this.isInitialized = true;
 
         // 호스트 여부에 따라 다른 배경 설정
-        if (isHost) {
-            backgroundImage = ImageIO.read(new File("src/images/gameScreenRED.png"));
-        } else {
-            backgroundImage = ImageIO.read(new File("src/images/gameScreenBLUE.png"));
-        }
+        backgroundImage = ImageIO.read(new File(isHost ? "src/images/gameScreenRED.png" : "src/images/gameScreenBLUE.png"));
 
         initializeCards();
         setLayout(null);
@@ -72,6 +79,7 @@ public class GamePanel extends JPanel {
 
         repaint();
     }
+
 
     // 카드 초기화
     private void initializeCards() {
@@ -94,8 +102,8 @@ public class GamePanel extends JPanel {
         Card playerCard = playerCards.get(cardIndex);
 
         if (playerCard != null) {
-            // 서버에 카드 제출 메시지 전송
-            parentFrame.sendMessage("SUBMIT_CARD:" + playerCard.getNumber());
+            // 서버에 카드 제출 메시지 전송 (카드 번호와 방 제목 포함)
+            parentFrame.sendMessage("SUBMIT_CARD:" + playerCard.getNumber() + ":" + currentRoomTitle);
             playerCards.set(cardIndex, null);
             repaint();
         }

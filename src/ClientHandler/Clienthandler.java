@@ -50,8 +50,10 @@ public class Clienthandler implements Runnable {
                         String roomTitle = messageFromClient.substring(12).trim();
                         System.out.println(clientUsername + " is creating room: " + roomTitle);
                         server.createRoom(roomTitle, clientUsername);
-
-                    } else if (messageFromClient.startsWith("DELETE_ROOM:")) {
+                        // 방 생성 후 클라이언트에게 생성 완료 메시지 전송
+                        sendMessage("CREATE_ROOM_COMPLETED:" + roomTitle);
+                    }
+                    else if (messageFromClient.startsWith("DELETE_ROOM:")) {
                         String roomTitle = messageFromClient.substring(12).trim();
                         System.out.println(clientUsername + " is deleting the room: " + roomTitle);
                         server.deleteRoom(roomTitle, clientUsername);
@@ -59,8 +61,7 @@ public class Clienthandler implements Runnable {
                     } else if (messageFromClient.startsWith("JOIN_ROOM:")) {
                         String roomTitle = messageFromClient.substring(10).trim();
                         System.out.println(clientUsername + " is joining room: " + roomTitle);
-                        server.playerJoinRoom(roomTitle, clientUsername);
-
+                        server.playerJoinRoom(roomTitle, clientUsername, false); // 상대방은 false 전달
                     } else if (messageFromClient.equals("REQUEST_USERLIST")) {
                         System.out.println(clientUsername + " requested user list.");
                         broadcastUserList();
@@ -70,9 +71,13 @@ public class Clienthandler implements Runnable {
                         server.broadcastRoomList();
 
                     } else if (messageFromClient.startsWith("SUBMIT_CARD:")) {
-                        int cardNumber = Integer.parseInt(messageFromClient.substring(12).trim());
-                        System.out.println(clientUsername + " submitted card: " + cardNumber);
-                        server.submitCard(clientUsername, cardNumber);
+                        String[] parts = messageFromClient.substring(12).trim().split(":");
+                        int cardNumber = Integer.parseInt(parts[0]);
+                        String roomTitle = parts[1]; // 클라이언트에서 방 제목을 함께 보냄
+
+                        System.out.println(clientUsername + " submitted card: " + cardNumber + " in room: " + roomTitle);
+                        server.submitCard(clientUsername, cardNumber, roomTitle);
+
 
                         // 상대방에게 카드 제출 정보 전송
                         for (Clienthandler clientHandler : clientHandlers) {
