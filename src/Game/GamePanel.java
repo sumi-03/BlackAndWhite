@@ -1,5 +1,7 @@
 package Game;
 
+import Server.StartServer;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -19,14 +21,32 @@ public class GamePanel extends JPanel {
     private int playerWins;
     private int opponentWins;
     private int roundCount;               // 현재 라운드 수
-    private Image backgroundImage;        // 게임 배경 이미지
-    private String playerName;            // 플레이어 이름
-    private GameFrame parentFrame;        // 부모 프레임
+    private Image backgroundImage; // 게임 배경 이미지
+    private String playerName; // 현재 플레이어 이름
+    private String redPlayerName; // RED 플레이어 이름
+    private String bluePlayerName; // BLUE 플레이어 이름
+    private GameFrame parentFrame; // 부모 프레임
+    private boolean isInitialized = false;
 
-    public GamePanel(GameFrame parentFrame, String playerName, MusicPlayer musicPlayer, boolean isHost) throws IOException {
-        this.parentFrame = parentFrame;
+
+    
+
+    public GamePanel(GameFrame parentFrame, String playerName, MusicPlayer musicPlayer, boolean isHost)
+            throws IOException {
         this.playerName = playerName;
+        this.parentFrame = parentFrame;
+
+        System.out.println("getOpponentName 메서드 호출됨: isHost=" + isHost + ", playerName=" + playerName);
+
+
+        this.redPlayerName = isHost ? playerName : StartServer.getOpponentName(isHost, playerName);
+        this.bluePlayerName = isHost ? StartServer.getOpponentName(isHost, playerName) : playerName;
         this.musicPlayer = musicPlayer;
+        //red blue 이름 출력
+        System.out.println("RED: " + redPlayerName);
+        System.out.println("BLUE: " + bluePlayerName);
+        // 초기화 완료
+        this.isInitialized = true;
 
         // 호스트 여부에 따라 다른 배경 설정
         if (isHost) {
@@ -49,6 +69,8 @@ public class GamePanel extends JPanel {
                 handleCardSelection(e.getX(), e.getY());
             }
         });
+
+        repaint();
     }
 
     // 카드 초기화
@@ -145,6 +167,10 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
         drawBackground(g);
         drawCards(g);
+
+        if (isInitialized) { // 초기화 완료 시에만 텍스트 그리기
+            drawName(g);
+        }
     }
 
     private void drawBackground(Graphics g) {
@@ -182,4 +208,20 @@ public class GamePanel extends JPanel {
             }
         }
     }
+
+    private void drawName(Graphics g) {
+
+        g.setColor(Color.WHITE); // 텍스트 색상 설정
+        g.setFont(new Font("Malgun Gothic", Font.BOLD, 20)); // 텍스트 폰트 설정
+        g.drawString(redPlayerName, 150, 40); // 좌측 상단에 상대방 이름 표시
+
+        FontMetrics metrics = g.getFontMetrics(g.getFont());
+        int textWidth = metrics.stringWidth(bluePlayerName);
+
+        // 오른쪽 정렬을 위해 시작 위치 계산
+        int x = getWidth() - textWidth - 170; // 우측 여백 20
+
+        g.drawString(bluePlayerName, x, 40); // 좌측 상단에 상대방 이름 표시
+    }
+
 }
