@@ -4,8 +4,10 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
 
-public class SettingsPanel extends JPanel {
+public class SettingsPanel extends JPanel implements SongChangeListener {
     private static final long serialVersionUID = 1L;
+
+    private JLabel songNameLabel = new JLabel("노래 제목이 여기 표시됩니다. ");
 
     public SettingsPanel(JFrame parentFrame, MusicPlayer musicPlayer) {
         setLayout(null);
@@ -31,17 +33,33 @@ public class SettingsPanel extends JPanel {
         musicVolumeSlider.setBounds(155, 100, 300, 30);
         add(musicVolumeSlider);
 
+
+        //제목달기 편의상 맨밑에 담
+        String songName = musicPlayer.getCurrentSongName();
+        songNameLabel.setText(songName);
+        songNameLabel.setBounds(155,250, 300, 30);
+        songNameLabel.setForeground(Color.WHITE);
+        add(songNameLabel);
+
+        //제목 리스너 설정
+        musicPlayer.setListener(this);
+
+        //2024_12_19 Volume Slider Value
+        musicVolumeSlider.setValue(musicPlayer.getVolumeLevel());
+
         // 음악 볼륨 슬라이더 이벤트
         musicVolumeSlider.addChangeListener((ChangeEvent e) -> {
             int sliderValue = musicVolumeSlider.getValue();
-            float volume = sliderValue / 100f; // 0~100 값을 0.0~1.0로 변환
-
-            if (sliderValue == 0) {
-                musicPlayer.setVolume(0); // 음소거
-            } else {
-                musicPlayer.setVolume(volume);
-            }
+            musicPlayer.setVolumeLevel(sliderValue); // 플레어 안에서 쓰도록 함
+//            float volume = sliderValue / 100f; // 0~100 값을 0.0~1.0로 변환
+//
+//            if (sliderValue == 0) {
+//                musicPlayer.setVolume(0); // 음소거
+//            } else {
+//                musicPlayer.setVolume(volume);
+//            }
         });
+
 
         JLabel effectVolumeLabel = new JLabel("효과음 볼륨");
         effectVolumeLabel.setForeground(Color.WHITE);
@@ -71,7 +89,15 @@ public class SettingsPanel extends JPanel {
             parentFrame.getLayeredPane().repaint();
         });
         add(closeButton);
-        
-        
+
+    }
+
+    //플레이어로부터 이벤트 받아서 설정
+    @Override
+    public String changeSongName(String songName) {
+
+        this.songNameLabel.setText(songName);
+
+        return null;
     }
 }
