@@ -12,6 +12,7 @@ public class GameFrame extends JFrame {
     private MusicPlayer musicPlayer;
     private String[] pendingUserList;
     private String playerName;
+    private String currentRoomTitle;
 
     public GameFrame() {
         setTitle("BnW");
@@ -118,7 +119,6 @@ public class GameFrame extends JFrame {
         }
     }
 
-    // GameFrame 클래스에 추가
     public ClientStart getClient() {
         return client;
     }
@@ -144,6 +144,14 @@ public class GameFrame extends JFrame {
         }
     }
 
+    public void setCurrentRoomTitle(String roomTitle) {
+        this.currentRoomTitle = roomTitle;
+    }
+
+    public String getCurrentRoomTitle() {
+        return currentRoomTitle;
+    }
+
 
     // WaitingRoomPanel로 전환
     public void showWaitingRoomPanel(RoomInfo room, boolean isPrivate, boolean isHost, String password) {
@@ -162,9 +170,11 @@ public class GameFrame extends JFrame {
     }
 
     //게임 패널 전환
-    public void showGamePanel(boolean isHost) {
+    public void showGamePanel(boolean isHost, String opponentName) {
         try {
-            GamePanel gamePanel = new GamePanel(this, playerName, musicPlayer, isHost);
+            String currentRoomTitle = getCurrentRoomTitle(); // 현재 방 제목 가져오기
+
+            GamePanel gamePanel = new GamePanel(this, playerName, musicPlayer, isHost, opponentName, currentRoomTitle);
             setContentPane(gamePanel);
             revalidate();
             repaint();
@@ -173,6 +183,7 @@ public class GameFrame extends JFrame {
             JOptionPane.showMessageDialog(null, "게임 화면 전환 중 오류가 발생했습니다.", "오류", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     // GameFrame 클래스에 라운드 결과를 업데이트하는 메서드
     public void updateRoundResult(String result) {

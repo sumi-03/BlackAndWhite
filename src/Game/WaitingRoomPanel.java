@@ -101,7 +101,6 @@ public class WaitingRoomPanel extends JPanel {
 
     // 상대방 이름 업데이트 메서드
     public void updateBluePlayer(String opponentName) {
-
         this.opponent = opponentName;
         opponentNameLabel.setText("BLUE 플레이어: " + opponentName);
 
@@ -113,15 +112,12 @@ public class WaitingRoomPanel extends JPanel {
 
         if (!countdownStarted) {
             countdownStarted = true;
-            startCountdownToGame(); // 호스트 여부를 전달
+            startCountdownToGame(isHost, opponent); // 상대방 이름을 전달
         }
     }
 
     // 두 플레이어 입장 후 카운트 다운 -> 게임패널로 넘어감
-    public void startCountdownToGame() {
-        
-        this.remove(backButton); // backButton 제거
-
+    public void startCountdownToGame(boolean isHost, String opponentName) {
         if (!countdownStarted) {
             countdownStarted = true;
             Timer timer = new Timer();
@@ -130,19 +126,13 @@ public class WaitingRoomPanel extends JPanel {
 
                 @Override
                 public void run() {
-                    try {
-                        if (countdown > 0) {
-                            System.out.println("게임 시작까지: " + countdown + "초");
-                            countdownLabel.setText("게임 시작까지: " + countdown + "초");
-                            repaint();
-                            countdown--;
-                        } else {
-                            timer.cancel();
-                            SwingUtilities.invokeLater(() -> parentFrame.showGamePanel(isHost)); // 호스트 여부 전달
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    if (countdown > 0) {
+                        System.out.println("게임 시작까지: " + countdown + "초");
+                        countdownLabel.setText("게임 시작까지: " + countdown + "초");
+                        countdown--;
+                    } else {
                         timer.cancel();
+                        SwingUtilities.invokeLater(() -> parentFrame.showGamePanel(isHost, opponentName));
                     }
                 }
             };

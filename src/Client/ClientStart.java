@@ -69,34 +69,46 @@ public class ClientStart {
 
                             gameFrame.updateRoomList(rooms);
 
+                        } else if (msgFromServer.startsWith("CREATE_ROOM_COMPLETED:")) {
+                            String roomTitle = msgFromServer.substring(20).trim();
+                            gameFrame.setCurrentRoomTitle(roomTitle);  // 방 제목 설정
+                            sendMessage("JOIN_ROOM:" + roomTitle);     // 방 생성 후 자동 입장 요청
+
+                        } else if (msgFromServer.startsWith("JOIN_ROOM_SUCCESS:")) {
+                            String roomTitle = msgFromServer.substring(17).trim();
+                            gameFrame.setCurrentRoomTitle(roomTitle);  // 방 제목 설정
+
                         } else if (msgFromServer.startsWith("OPPONENT_JOINED:")) {
                             String[] parts = msgFromServer.substring(16).split(",");
                             String roomTitle = parts[0];
                             String opponentName = parts[1];
                             SwingUtilities.invokeLater(() -> gameFrame.updateBluePlayer(opponentName));
 
-                        } else if (msgFromServer.startsWith("START_GAME:")) {
-                            boolean isHost = msgFromServer.substring(11).equals("HOST");
-                            SwingUtilities.invokeLater(() -> {
-                                gameFrame.showGamePanel(isHost);
-                            });
-                        }
-                        else if (msgFromServer.equals("START_COUNTDOWN")) {
+                        } else if (msgFromServer.startsWith("CREATE_ROOM_COMPLETED:")) {
+                            String roomTitle = msgFromServer.substring(20).trim();
+                            gameFrame.setCurrentRoomTitle(roomTitle); // 방 제목 설정
+                            sendMessage("REQUEST_ROOMLIST");          // 최신 roomList 요청
+                            sendMessage("JOIN_ROOM:" + roomTitle);    // 방에 자동으로 입장 요청
+                        }else if (msgFromServer.startsWith("START_COUNTDOWN")) {
+                            String[] parts = msgFromServer.split(":");
+                            boolean isHost = parts.length > 1 && parts[1].equals("true");
+                            String opponentName = parts.length > 2 ? parts[2] : "???";
+
                             SwingUtilities.invokeLater(() -> {
                                 if (gameFrame.getContentPane() instanceof WaitingRoomPanel waitingRoomPanel) {
-                                    waitingRoomPanel.startCountdownToGame(); // 호스트만 실행
+                                    waitingRoomPanel.startCountdownToGame(isHost, opponentName);
                                 }
                             });
-                        } else if (msgFromServer.equals("START_GAME")) {
-                            SwingUtilities.invokeLater(() -> gameFrame.showGamePanel(false)); // 상대방은 isHost=false
+                        } else if (msgFromServer.startsWith("START_GAME:")) {
+                            String[] parts = msgFromServer.split(":");
+                            boolean isHost = parts[1].equals("HOST");
+                            String opponentName = parts.length > 2 ? parts[2] : "???";
 
-
+                            SwingUtilities.invokeLater(() -> gameFrame.showGamePanel(isHost, opponentName));
                         } else if (msgFromServer.startsWith("OPPONENT_CARD_SUBMITTED:")) {
                             try {
-                                // 콜론(:) 이후의 값을 추출
                                 String cardNumberStr = msgFromServer.split(":")[1].trim();
                                 System.out.println("Received card number string: \"" + cardNumberStr + "\"");
-
                                 int cardNumber = Integer.parseInt(cardNumberStr);
                                 System.out.println("Parsed card number: " + cardNumber);
 
@@ -109,6 +121,7 @@ public class ClientStart {
                                 e.printStackTrace();
                                 JOptionPane.showMessageDialog(null, "서버에서 잘못된 카드 번호를 수신했습니다.", "오류", JOptionPane.ERROR_MESSAGE);
                             }
+
                         } else if (msgFromServer.startsWith("ROUND_RESULT:")) {
                             String result = msgFromServer.substring(13).trim();
                             SwingUtilities.invokeLater(() -> gameFrame.updateRoundResult(result));

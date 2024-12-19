@@ -41,21 +41,11 @@ public class StartServer {
 
     // 방 생성 메서드
     public void createRoom(String roomTitle, String hostName) {
-
         synchronized (roomList) {
-
             RoomInfo newRoom = new RoomInfo(roomTitle, hostName, "대기중...");
             roomList.add(newRoom);
-            System.out.println("방 생성 완료. roomList size: " + roomList.size());
             System.out.println("Room created: " + roomTitle + ", Host: " + hostName);
-
-            for (RoomInfo room : roomList) {
-                System.out.println("RoomTitle: " + room.getRoomTitle() + ", Host: " + room.getHostName());
-            }
-
-
-            broadcastRoomList();
-
+            broadcastRoomList(); // 방 목록 브로드캐스트
         }
 
         for (Clienthandler client : clientHandlers) {
@@ -112,16 +102,16 @@ public class StartServer {
                     room.setStatus("게임중");
                     broadcastRoomList();
 
-                    // 호스트에게 START_COUNTDOWN 신호 전송
-                    sendCountdownSignal(room.getHostName());
-                    // 상대방에게는 START_GAME 신호 전송
-                    sendCountdownSignal(playerName);
+                    // 호스트와 상대방에게 카운트다운 신호 전송
+                    sendCountdownSignal(room.getHostName(), true, playerName);
+                    sendCountdownSignal(playerName, false, room.getHostName());
 
+
+                    // 호스트에게 상대방이 입장했음을 알림
                     for (Clienthandler client : clientHandlers) {
-
                         if (client.getClientUsername().equals(room.getHostName())) {
-
                             client.sendMessage("OPPONENT_JOINED:" + room.getRoomTitle() + "," + playerName);
+
                         }
                     }
                 }
@@ -129,11 +119,11 @@ public class StartServer {
         }
     }
 
-    private void sendCountdownSignal(String playerName) {
+    private void sendCountdownSignal(String playerName, boolean isHost, String opponentName) {
         for (Clienthandler client : clientHandlers) {
             if (client.getClientUsername().equals(playerName)) {
                 try {
-                    client.getBufferedWriter().write("START_COUNTDOWN");
+                    client.getBufferedWriter().write("START_COUNTDOWN:" + isHost + ":" + opponentName);
                     client.getBufferedWriter().newLine();
                     client.getBufferedWriter().flush();
                 } catch (IOException e) {
@@ -142,6 +132,64 @@ public class StartServer {
                 break;
             }
         }
+    }
+    public void handleStartGameSignal(String roomTitle) {
+        synchronized (roomList) {
+            for (RoomInfo room : roomList) {
+                if (room.getRoomTitle().equals(roomTitle)) {
+                    sendStartGameSignal(room.getHostName(), "HOST", room.getOpponentName());
+                    sendStartGameSignal(room.getOpponentName(), "OPPONENT", room.getHostName());
+                    break;
+                }
+            }
+        }
+    }
+    private void sendStartGameSignal(String playerName, String role, String opponentName) {
+        for (Clienthandler client : clientHandlers) {
+            if (client.getClientUsername().equals(playerName)) {
+                try {
+                    client.getBufferedWriter().write("START_GAME:" + role + ":" + opponentName);
+                    client.getBufferedWriter().newLine();
+                    client.getBufferedWriter().flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+
+
+
+
+
+        for (Clienthandler client : clientHandlers) {
+            if (client.getClientUsername().equals(playerName)) {
+                try {
+                    client.getBufferedWriter().write("START_GAME:" + role);
+                    client.getBufferedWriter().newLine();
+                    client.getBufferedWriter().flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+    }
+
+    public static String getOpponentName(boolean isHost, String playerName) {
+        System.out.println("getOpponentName 호출됨: isHost=" + isHost + ", playerName=" + playerName);
+        System.out.println("현재 roomList 크기: " + roomList.size());
+
+        for (RoomInfo room : roomList) {
+            System.out.println("방 확인: RoomTitle=" + room.getRoomTitle() + ", Host=" + room.getHostName() + ", Opponent=" + room.getOpponentName());
+
+            if (isHost && room.getHostName().equals(playerName)) {
+                return room.getOpponentName();
+            } else if (!isHost && room.getOpponentName().equals(playerName)) {
+                return room.getHostName();
+            }
+        }
+        return "방 정보를 찾을 수 없습니다";
     }
 
     // 카드 제출 처리 메서드에서 상대방 카드 제출 메시지 전송
@@ -172,26 +220,6 @@ public class StartServer {
             determineRoundWinner();
             resetRound();
         }
-    }
-
-    // 상대방 이름 반환 메서드
-    public static String getOpponentName(boolean isHost, String playerName) {
-        int i = 0;
-
-        System.out.println("### roomList size: " + roomList.size());
-        System.out.flush(); // 버퍼 비우기: roomList 크기를 즉시 확인
-
-        for (RoomInfo room : roomList) {
-            System.out.println("출력:::: " + i++ + room.getHostName() + room.getOpponentName());
-            System.out.flush(); // 버퍼 비우기: 방 정보 즉시 확인
-
-            if (isHost && room.getHostName().equals(playerName)) {
-                return room.getOpponentName();
-            } else if (!isHost && room.getOpponentName().equals(playerName)) {
-                return room.getHostName();
-            }
-        }
-        return "빵";
     }
 
 

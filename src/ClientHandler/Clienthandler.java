@@ -50,8 +50,11 @@ public class Clienthandler implements Runnable {
                         String roomTitle = messageFromClient.substring(12).trim();
                         System.out.println(clientUsername + " is creating room: " + roomTitle);
                         server.createRoom(roomTitle, clientUsername);
+                        // 클라이언트에게 방 생성 완료 메시지 전송
+                        sendMessage("CREATE_ROOM_COMPLETED:" + roomTitle);
+                    }
 
-                    } else if (messageFromClient.startsWith("DELETE_ROOM:")) {
+                    else if (messageFromClient.startsWith("DELETE_ROOM:")) {
                         String roomTitle = messageFromClient.substring(12).trim();
                         System.out.println(clientUsername + " is deleting the room: " + roomTitle);
                         server.deleteRoom(roomTitle, clientUsername);
@@ -61,15 +64,22 @@ public class Clienthandler implements Runnable {
                         System.out.println(clientUsername + " is joining room: " + roomTitle);
                         server.playerJoinRoom(roomTitle, clientUsername);
 
-                    } else if (messageFromClient.equals("REQUEST_USERLIST")) {
+                    }
+                    else if (messageFromClient.equals("REQUEST_USERLIST")) {
                         System.out.println(clientUsername + " requested user list.");
                         broadcastUserList();
 
-                    } else if (messageFromClient.equals("REQUEST_ROOMLIST")) {
+                    }
+                    else if (messageFromClient.equals("REQUEST_ROOMLIST")) {
                         System.out.println(clientUsername + " requested room list.");
                         server.broadcastRoomList();
 
-                    } else if (messageFromClient.startsWith("SUBMIT_CARD:")) {
+                    }
+                    else if (messageFromClient.startsWith("START_GAME_SIGNAL:")) {
+                        String roomTitle = messageFromClient.substring(17).trim();
+                        server.handleStartGameSignal(roomTitle);
+                    }
+                    else if (messageFromClient.startsWith("SUBMIT_CARD:")) {
                         int cardNumber = Integer.parseInt(messageFromClient.substring(12).trim());
                         System.out.println(clientUsername + " submitted card: " + cardNumber);
                         server.submitCard(clientUsername, cardNumber);

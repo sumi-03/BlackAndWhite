@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="카드를 객체로 설정함">
-      <change afterPath="$PROJECT_DIR$/src/Game/SongChangeListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/MusicPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/MusicPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Game/SettingsPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/SettingsPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client/ClientStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClientHandler/Clienthandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientHandler/Clienthandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/StartServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/StartServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +33,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="tmp" />
+        <entry key="$PROJECT_DIR$" value="sim" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -112,7 +115,7 @@
       <recent name="$PROJECT_DIR$/src/Images" />
     </key>
   </component>
-  <component name="RunManager" selected="애플리케이션.Client1">
+  <component name="RunManager" selected="애플리케이션.Client2">
     <configuration name="Client1" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Game.App" />
       <module name="BlackAndWhite" />

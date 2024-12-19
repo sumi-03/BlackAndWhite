@@ -1,7 +1,5 @@
 package Game;
 
-import Server.StartServer;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +13,7 @@ import java.util.List;
 
 public class GamePanel extends JPanel {
     private final MusicPlayer musicPlayer;
+    private final String currentRoomTitle;
 
     private List<Card> playerCards;       // 내 카드 리스트
     private List<Card> opponentCards;     // 상대 카드 리스트
@@ -29,35 +28,28 @@ public class GamePanel extends JPanel {
     private boolean isInitialized = false;
 
 
-    
 
-    public GamePanel(GameFrame parentFrame, String playerName, MusicPlayer musicPlayer, boolean isHost)
+
+    public GamePanel(GameFrame parentFrame, String playerName, MusicPlayer musicPlayer, boolean isHost, String opponentName, String currentRoomTitle)
             throws IOException {
         this.playerName = playerName;
         this.parentFrame = parentFrame;
-
-        System.out.println("getOpponentName 메서드 호출됨: isHost=" + isHost + ", playerName=" + playerName);
-
-
-        this.redPlayerName = isHost ? playerName : StartServer.getOpponentName(isHost, playerName);
-        this.bluePlayerName = isHost ? StartServer.getOpponentName(isHost, playerName) : playerName;
+        this.currentRoomTitle = currentRoomTitle;
         this.musicPlayer = musicPlayer;
-        //red blue 이름 출력
+
+        this.redPlayerName = isHost ? playerName : opponentName;
+        this.bluePlayerName = isHost ? opponentName : playerName;
+
         System.out.println("RED: " + redPlayerName);
         System.out.println("BLUE: " + bluePlayerName);
-        // 초기화 완료
-        this.isInitialized = true;
 
-        // 호스트 여부에 따라 다른 배경 설정
-        if (isHost) {
-            backgroundImage = ImageIO.read(new File("src/images/gameScreenRED.png"));
-        } else {
-            backgroundImage = ImageIO.read(new File("src/images/gameScreenBLUE.png"));
-        }
+        backgroundImage = ImageIO.read(new File(isHost ? "src/images/gameScreenRED.png" : "src/images/gameScreenBLUE.png"));
 
         initializeCards();
         setLayout(null);
         setPreferredSize(new Dimension(960, 600));
+
+        this.isInitialized = true;
 
         roundCount = 0;
         playerWins = 0;
@@ -168,9 +160,8 @@ public class GamePanel extends JPanel {
         drawBackground(g);
         drawCards(g);
 
-        if (isInitialized) { // 초기화 완료 시에만 텍스트 그리기
-            drawName(g);
-        }
+        // 항상 이름 그리기
+        drawName(g);
     }
 
     private void drawBackground(Graphics g) {
