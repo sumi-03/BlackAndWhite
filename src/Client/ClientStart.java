@@ -71,9 +71,9 @@ public class ClientStart {
 
                         } else if (msgFromServer.startsWith("CREATE_ROOM_COMPLETED:")) {
                             String roomTitle = msgFromServer.substring(20).trim();
-                            gameFrame.setCurrentRoomTitle(roomTitle);  // 방 제목 설정
-                            sendMessage("JOIN_ROOM:" + roomTitle);     // 방 생성 후 자동 입장 요청
-
+                            gameFrame.setCurrentRoomTitle(roomTitle); // 방 제목 설정
+                            sendMessage("REQUEST_ROOMLIST");          // 최신 roomList 요청
+                            sendMessage("JOIN_ROOM:" + roomTitle);    // 방에 자동으로 입장 요청
                         } else if (msgFromServer.startsWith("JOIN_ROOM_SUCCESS:")) {
                             String roomTitle = msgFromServer.substring(17).trim();
                             gameFrame.setCurrentRoomTitle(roomTitle);  // 방 제목 설정
@@ -84,12 +84,7 @@ public class ClientStart {
                             String opponentName = parts[1];
                             SwingUtilities.invokeLater(() -> gameFrame.updateBluePlayer(opponentName));
 
-                        } else if (msgFromServer.startsWith("CREATE_ROOM_COMPLETED:")) {
-                            String roomTitle = msgFromServer.substring(20).trim();
-                            gameFrame.setCurrentRoomTitle(roomTitle); // 방 제목 설정
-                            sendMessage("REQUEST_ROOMLIST");          // 최신 roomList 요청
-                            sendMessage("JOIN_ROOM:" + roomTitle);    // 방에 자동으로 입장 요청
-                        }else if (msgFromServer.startsWith("START_COUNTDOWN")) {
+                        } else if (msgFromServer.startsWith("START_COUNTDOWN")) {
                             String[] parts = msgFromServer.split(":");
                             boolean isHost = parts.length > 1 && parts[1].equals("true");
                             String opponentName = parts.length > 2 ? parts[2] : "???";
