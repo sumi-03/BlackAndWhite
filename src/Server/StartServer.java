@@ -133,6 +133,7 @@ public class StartServer {
             }
         }
     }
+
     public void handleStartGameSignal(String roomTitle) {
         synchronized (roomList) {
             for (RoomInfo room : roomList) {
@@ -144,6 +145,7 @@ public class StartServer {
             }
         }
     }
+
     private void sendStartGameSignal(String playerName, String role, String opponentName) {
         for (Clienthandler client : clientHandlers) {
             if (client.getClientUsername().equals(playerName)) {
@@ -157,9 +159,6 @@ public class StartServer {
                 break;
             }
         }
-
-
-
 
 
         for (Clienthandler client : clientHandlers) {

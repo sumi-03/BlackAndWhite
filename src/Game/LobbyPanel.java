@@ -1,10 +1,10 @@
 package Game;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.List;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class LobbyPanel extends JPanel {
     private Image backgroundImage;
@@ -13,10 +13,12 @@ public class LobbyPanel extends JPanel {
     private JTextArea textArea;
     private JPanel roomListPanel;
     private GameFrame parentFrame;
+    private LobbyPanel lobbyPanel;
     private JPanel[] roomPanels;
 
     public LobbyPanel(GameFrame parentFrame, MusicPlayer musicPlayer, String playerName) {
         this.parentFrame = parentFrame; // parentFrame 초기화
+        this.lobbyPanel = lobbyPanel;
         setPreferredSize(new Dimension(960, 600));
         setLayout(null);
         this.musicPlayer = musicPlayer;
@@ -147,7 +149,7 @@ public class LobbyPanel extends JPanel {
 
             String text = inputField.getText().trim();
             if (!text.isEmpty()) {
-                
+
                 // 서버로 메시지 전송
                 this.parentFrame.getClient().sendMessage(text);
 
@@ -228,6 +230,7 @@ public class LobbyPanel extends JPanel {
             userListPanel.repaint();
         });
     }
+
     // 방 목록을 업데이트하는 메서드
     public void updateRoomList(List<RoomInfo> rooms) {
         SwingUtilities.invokeLater(() -> {
@@ -270,11 +273,17 @@ public class LobbyPanel extends JPanel {
                     @Override
                     public void mouseClicked(java.awt.event.MouseEvent e) {
 
-                        room.setOpponentName(parentFrame.getClient().getUserName());
-                        parentFrame.sendMessage("JOIN_ROOM:" + room.getRoomTitle());
-                        parentFrame.showWaitingRoomPanel(room, false, false, "");
+                        String statusText = statusLabel.getText();
 
-                    }
+  
+                            if (statusText.equals("상태: 게임중")) {
+                                JOptionPane.showMessageDialog(lobbyPanel, "게임 중인 방에는 들어가실수 없습니다.", "경고", JOptionPane.WARNING_MESSAGE);
+                            } else {
+                                room.setOpponentName(parentFrame.getClient().getUserName());
+                                parentFrame.sendMessage("JOIN_ROOM:" + room.getRoomTitle());
+                                parentFrame.showWaitingRoomPanel(room, false, false, "");
+                            }
+                        }
                 });
 
                 panel.setVisible(true);
@@ -284,7 +293,6 @@ public class LobbyPanel extends JPanel {
             roomListPanel.repaint();
         });
     }
-
 
 
     @Override

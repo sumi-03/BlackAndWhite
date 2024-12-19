@@ -7,6 +7,11 @@
     <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="GamePanel로 이동 후 상대방의 이름이 나오지 않는 오류 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Client/ClientStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client/ClientStart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ClientHandler/Clienthandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ClientHandler/Clienthandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/GameFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GameFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/GamePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/GamePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game/WaitingRoomPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/StartServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/StartServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +115,7 @@
       <recent name="$PROJECT_DIR$/src/Images" />
     </key>
   </component>
-  <component name="RunManager" selected="애플리케이션.Client2">
+  <component name="RunManager" selected="Application.Client3">
     <configuration name="Client1" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Game.App" />
       <module name="BlackAndWhite" />
@@ -147,11 +152,11 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="애플리케이션.Client1" />
-      <item itemvalue="애플리케이션.Client2" />
-      <item itemvalue="애플리케이션.Client3" />
-      <item itemvalue="애플리케이션.Client4" />
-      <item itemvalue="애플리케이션.Server" />
+      <item itemvalue="Application.Client1" />
+      <item itemvalue="Application.Client2" />
+      <item itemvalue="Application.Client3" />
+      <item itemvalue="Application.Client4" />
+      <item itemvalue="Application.Server" />
     </list>
   </component>
   <component name="SharedIndexes">
@@ -189,6 +194,7 @@
       <workItem from="1733229910056" duration="9253000" />
       <workItem from="1734280500748" duration="7268000" />
       <workItem from="1734441892602" duration="1227000" />
+      <workItem from="1734585273083" duration="4673000" />
     </task>
     <task id="LOCAL-00001" summary="16:10으로 gameframe 해상도 변경">
       <option name="closed" value="true" />
@@ -360,5 +366,8 @@
   <component name="VgoProject">
     <integration-enabled>false</integration-enabled>
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/dd$Client3.ic" NAME="Client3 Coverage Results" MODIFIED="1734586671428" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
