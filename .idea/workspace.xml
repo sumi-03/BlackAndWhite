@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="BlackAndWhite:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="포트포워딩 ON">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="package-info" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;history&quot;: [
+    {
+      &quot;state&quot;: &quot;OPEN&quot;,
+      &quot;author&quot;: &quot;Hwisun9&quot;
+    }
+  ],
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;author&quot;: &quot;Hwisun9&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sumi-03/BlackAndWhite.git&quot;,
+    &quot;accountId&quot;: &quot;435579b0-fa66-4a9d-a420-41a5b34ced2d&quot;
+  }
+}</component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="true" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2oT7E5DZVHCap0UPL70Sk3tpmaA" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.App.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH": "355",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "sim",
+    "go.import.settings.migrated": "true",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/gnltj/git/BlackAndWhite/src/Images",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "아티팩트",
+    "project.structure.proportion": "0.1484375",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "project.propGUI",
+    "vue.rearranger.settings.migration": "true",
+    "애플리케이션.App.executor": "Run",
+    "애플리케이션.Client1.executor": "Run",
+    "애플리케이션.Client2.executor": "Run",
+    "애플리케이션.Client3.executor": "Run",
+    "애플리케이션.Client4.executor": "Run",
+    "애플리케이션.LoginPanel.executor": "Run",
+    "애플리케이션.Server.executor": "Run",
+    "애플리케이션.StartServer.executor": "Run",
+    "애플리케이션.loginpanel.executor": "Run"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\gnltj\git\BlackAndWhite\src\Images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\gnltj\git\BlackAndWhite\src\Voices" />
+      <recent name="C:\Users\gnltj\git\BlackAndWhite\src\Sounds" />
+      <recent name="C:\Users\gnltj\git\BlackAndWhite\src\Images" />
+      <recent name="C:\Users\gnltj\git\BlackAndWhite\src\ClientHandler" />
+      <recent name="C:\Users\gnltj\git\BlackAndWhite\src\Clinet" />
+    </key>
+  </component>
+  <component name="RunManager" selected="애플리케이션.Client1">
+    <configuration name="Client1" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Game.App" />
+      <module name="BlackAndWhite" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Client2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Game.App" />
+      <module name="BlackAndWhite" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Client3" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Game.App" />
+      <module name="BlackAndWhite" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Client4" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Game.App" />
+      <module name="BlackAndWhite" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="Server.StartServer" />
+      <module name="BlackAndWhite" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="애플리케이션.Client1" />
+      <item itemvalue="애플리케이션.Client2" />
+      <item itemvalue="애플리케이션.Client3" />
+      <item itemvalue="애플리케이션.Client4" />
+      <item itemvalue="애플리케이션.Server" />
+    </list>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fdfe4dae3a2d-intellij.indexing.shared.core-IU-243.22562.145" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-IU-243.22562.145" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="애플리케이션 수준" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\hansung\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="디폴트 작업">
+      <changelist id="280e999e-bf45-4880-a0cb-2c2adcf2d212" name="변경" comment="" />
+      <created>1730881596486</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1730881596486</updated>
+      <workItem from="1730881597478" duration="398000" />
+      <workItem from="1731484055262" duration="330000" />
+      <workItem from="1731484498573" duration="447000" />
+      <workItem from="1731485797948" duration="1380000" />
+      <workItem from="1731560780631" duration="1490000" />
+      <workItem from="1731562310636" duration="651000" />
+      <workItem from="1731563049692" duration="1266000" />
+      <workItem from="1731565080446" duration="361000" />
+      <workItem from="1731565643669" duration="176000" />
+      <workItem from="1731565886964" duration="92000" />
+      <workItem from="1731565999553" duration="1394000" />
+      <workItem from="1732088434724" duration="2037000" />
+      <workItem from="1733228476301" duration="1421000" />
+      <workItem from="1733229910056" duration="9253000" />
+      <workItem from="1734827447350" duration="28970000" />
+      <workItem from="1734923420569" duration="4955000" />
+      <workItem from="1734932076216" duration="69000" />
+      <workItem from="1734935191824" duration="3041000" />
+    </task>
+    <task id="LOCAL-00001" summary="16:10으로 gameframe 해상도 변경">
+      <option name="closed" value="true" />
+      <created>1731561185004</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1731561185004</updated>
+    </task>
+    <task id="LOCAL-00002" summary="bgm 추가">
+      <option name="closed" value="true" />
+      <created>1733228933864</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1733228933864</updated>
+    </task>
+    <task id="LOCAL-00003" summary="GameFrame 수정">
+      <option name="closed" value="true" />
+      <created>1733236023373</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236023373</updated>
+    </task>
+    <task id="LOCAL-00004" summary="LoginPanel 추가">
+      <option name="closed" value="true" />
+      <created>1733236133740</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236133740</updated>
+    </task>
+    <task id="LOCAL-00005" summary="MusicPlayer 추가">
+      <option name="closed" value="true" />
+      <created>1733236164528</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236164528</updated>
+    </task>
+    <task id="LOCAL-00006" summary="new">
+      <option name="closed" value="true" />
+      <created>1733236232340</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236232340</updated>
+    </task>
+    <task id="LOCAL-00007" summary="img 추가">
+      <option name="closed" value="true" />
+      <created>1733236265963</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236265963</updated>
+    </task>
+    <task id="LOCAL-00008" summary="LobbyPanel 추가">
+      <option name="closed" value="true" />
+      <created>1733236284988</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236284988</updated>
+    </task>
+    <task id="LOCAL-00009" summary="SettingsPanel 추가">
+      <option name="closed" value="true" />
+      <created>1733236300834</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733236300834</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Windows 환경에 맞게 변경">
+      <option name="closed" value="true" />
+      <created>1734095709485</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1734095709485</updated>
+    </task>
+    <task id="LOCAL-00011" summary="소켓 기본 구조 설계">
+      <option name="closed" value="true" />
+      <created>1734095751884</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1734095751884</updated>
+    </task>
+    <task id="LOCAL-00012" summary="12/21">
+      <option name="closed" value="true" />
+      <created>1734792034966</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1734792034966</updated>
+    </task>
+    <task id="LOCAL-00013" summary="포트포워딩 ON">
+      <option name="closed" value="true" />
+      <created>1734936152395</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1734936152395</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="16:10으로 gameframe 해상도 변경" />
+    <MESSAGE value="bgm 추가" />
+    <MESSAGE value="GameFrame 수정" />
+    <MESSAGE value="LoginPanel 추가" />
+    <MESSAGE value="MusicPlayer 추가" />
+    <MESSAGE value="new" />
+    <MESSAGE value="img 추가" />
+    <MESSAGE value="LobbyPanel 추가" />
+    <MESSAGE value="SettingsPanel 추가" />
+    <MESSAGE value="Windows 환경에 맞게 변경" />
+    <MESSAGE value="12/21" />
+    <MESSAGE value="12/22 21:37" />
+    <MESSAGE value="소켓 기본 구조 설계" />
+    <MESSAGE value="12/21" />
+    <MESSAGE value="포트포워딩 ON" />
+    <option name="LAST_COMMIT_MESSAGE" value="포트포워딩 ON" />
+  </component>
+</project>
