@@ -38,7 +38,7 @@
 <br>
 
 # ✨User Flow
-![스크린샷 2024-12-24 011210](https://github.com/user-attachments/assets/85b94bd5-d447-4721-bec3-bd759e9f474a)
+<img width="500" alt="Image" src="https://github.com/user-attachments/assets/c209f1b9-c97e-4c0c-b117-a3062ee4abf9" />
 
 <br>
 
